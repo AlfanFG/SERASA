@@ -58,7 +58,9 @@ class auth extends CI_Controller
                     'Nama' => $pegawai['namaPegawai'],
                     'tglLahir' => $pegawai['tgl_lahir'],
                     'Alamat' => $pegawai['alamat'],
-                    'noTelp' => $pegawai['no_telp']
+                    'noTelp' => $pegawai['no_telp'],
+                    'foto' => $pegawai['foto'],
+                    'status' => 'login'
                 ];
                 $this->session->set_userdata($data);
                 if ($data['idJabatan'] == 1) {
