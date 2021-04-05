@@ -22,8 +22,6 @@
             <!-- Right navbar links -->
             <ul class="navbar-nav ml-auto">
 
-
-
                 <!-- Notifications Dropdown Menu -->
                 <li class="nav-item dropdown">
                     <a class="nav-link" data-toggle="dropdown" href="#">
@@ -122,7 +120,7 @@
                         <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
                         <li class="nav-item menu-open">
-                            <a href="#" class="nav-link active">
+                            <a href="<?php echo site_url('Manajer') ?>" class="nav-link active">
                                 <i class="nav-icon fas fa-tachometer-alt"></i>
                                 <p>
                                     Dashboard
@@ -132,7 +130,7 @@
 
                         </li>
                         <li class="nav-item">
-                            <a href="pages/widgets.html" class="nav-link">
+                            <a href="" class="nav-link">
                                 <i class="nav-icon fas fa-th"></i>
                                 <p>
                                     Data Master
@@ -141,7 +139,7 @@
                             </a>
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
-                                    <a href="databarang.html" class="nav-link">
+                                    <a href="<?php echo site_url("DataMasterManajer"); ?>" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>Data Pegawai</p>
                                     </a>
@@ -152,8 +150,6 @@
                                         <p>Data Pemesanan</p>
                                     </a>
                                 </li>
-
-
                             </ul>
                         </li>
 
@@ -172,11 +168,8 @@
                                         <p>Laporan Pemesanan</p>
                                     </a>
                                 </li>
-
                             </ul>
                         </li>
-
-
                     </ul>
                 </nav>
                 <!-- /.sidebar-menu -->

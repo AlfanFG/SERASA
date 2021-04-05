@@ -54,6 +54,7 @@ class auth extends CI_Controller
             // Password Match
             if (($password == $user['password'])) {
                 $data = [
+
                     'idJabatan' => $pegawai['id_jabatan'],
                     'Nama' => $pegawai['namaPegawai'],
                     'tglLahir' => $pegawai['tgl_lahir'],
