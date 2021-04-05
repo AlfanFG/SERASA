@@ -1,7 +1,7 @@
 <?php
 
 $this->load->view('parts/header');
-$this->load->view('parts/navigation');
+$this->load->view('parts/navigationManajer');
 ?>
 
 <div class="content-wrapper">
