@@ -47,7 +47,6 @@ $this->load->view('parts_barista/navigation');
             } ?>
         </table>
     </section>
-    <? php endforeach ?>
 
     <div class="modal fade" id="tambah" tabindex="-1" aria-labelledby="datakategorimenu" aria-hidden="true">
         <div class="modal-dialog">
