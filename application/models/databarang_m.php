@@ -34,9 +34,9 @@ class databarang_m extends CI_Model
         $this->db->insert('tbl_barang', $data);
     }
 
-    function hapusBarang($where, $table)
+    function hapusBarang($id_barang)
     {
-        $this->db->where($where);
-        $this->db->delete($table);
+        $this->db->where('id_barang', $id_barang);
+        $this->db->delete('tbl_barang');
     }
 }

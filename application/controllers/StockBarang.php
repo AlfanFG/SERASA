@@ -40,10 +40,9 @@ class StockBarang extends CI_Controller
         }
     }
 
-    function hapus($idBarang)
+    function hapusBarang($id_barang)
     {
-        $where = array('idBarang' => $idBarang);
-        $this->databarang_m->hapus_data($where, 'tbl_barang');
+        $this->databarang_m->hapusBarang($id_barang);
         redirect('StockBarang');
     }
 }
