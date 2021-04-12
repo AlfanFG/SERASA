@@ -161,7 +161,7 @@ $this->load->view('parts/navigationManajer');
                         <!-- /.card-header -->
 
                         <div class="card-body table-responsive p-0">
-                            <table class="table table-hover text-nowrap" id="tablePegawai">
+                            <table class="table table-hover text-nowrap" id="tableKategoriMenu">
                                 <thead>
                                     <tr>
                                         <th>No.</th>
@@ -349,6 +349,7 @@ $this->load->view('parts/navigationManajer');
                         <div class="modal-footer">
                             <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                             <button type="submit" class="btn btn-success btnModalInsert">Kirim</button>
+                        </div>
                     </form>
                 </div>
             </div>
@@ -416,16 +417,16 @@ $this->load->view('parts/footer');
 
 
 
-    $(document).ready(function() {
-        $('#edit-data').on('show.bs.modal', function(event) {
-            var div = $(event.relatedTarget)
-            var modal = $(this)
-            modal.find('#idPegawai').attr("value", div.data('id'));
-            modal.find('#namaPegawai').attr("value", div.data('nama'));
-            modal.find('#tglLahir').attr("value", div.data('tglLahir'));
-            modal.find('#alamat').attr("value", div.data('alamat'));
-            modal.find('#noTelp').val(div.data('noTelp'));
+    // $(document).ready(function() {
+    //     $('#edit-data').on('show.bs.modal', function(event) {
+    //         var div = $(event.relatedTarget)
+    //         var modal = $(this)
+    //         modal.find('#idPegawai').attr("value", div.data('id'));
+    //         modal.find('#namaPegawai').attr("value", div.data('nama'));
+    //         modal.find('#tglLahir').attr("value", div.data('tglLahir'));
+    //         modal.find('#alamat').attr("value", div.data('alamat'));
+    //         modal.find('#noTelp').val(div.data('noTelp'));
 
-        });
-    });
+    //     });
+    // });
 </script>
