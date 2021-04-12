@@ -152,7 +152,12 @@
                                         <p>Data Menu</p>
                                     </a>
                                 </li>
-
+                                <li class="nav-item">
+                                    <a class="nav-link" href="<?php base_url(); ?>StockBarang">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Data Stock Barang</p>
+                                    </a>
+                                </li>
 
                             </ul>
                         </li>
