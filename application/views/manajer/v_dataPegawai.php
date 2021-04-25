@@ -77,7 +77,7 @@ $this->load->view('parts/navigationManajer');
                         <!-- /.card-header -->
 
                         <div class="card-body table-responsive p-0">
-                            <table class="table table-hover text-nowrap" id="tablePegawai">
+                            <table class="table table-hover text-nowrap" id="tableKategoriMenu">
                                 <thead>
                                     <tr>
                                         <th>No.</th>
@@ -376,8 +376,11 @@ $this->load->view('parts/navigationManajer');
 
                         <div class="modal-footer">
                             <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                            <button type="submit" id="kirim" value="" class="btn btn-success btnModalInsert">Kirim</button>
+                            <<<<<<< HEAD <button type="submit" id="kirim" value="" class="btn btn-success btnModalInsert">Kirim</button>
 
+                                =======
+                                <button type="submit" class="btn btn-success btnModalInsert">Kirim</button>
+                                >>>>>>> 358e1f8de38c4f889a72cd36611c198d3d36cbed
                         </div>
                     </form>
                 </div>

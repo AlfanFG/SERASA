@@ -29,4 +29,18 @@ class KategoriMenu_m extends CI_Model
         ];
         $this->db->insert('tbl_kategorimenu', $data);
     }
+
+    public function deleteKategoriMenu($id)
+    {
+        $this->db->delete('tbl_kategorimenu', array('id_kategoriMenu' => $id));
+    }
+
+    public function updateKategoriMenu($id)
+    {
+        $data = [
+            "namaKategori" => $this->input->post('namaKategori')
+        ];
+        $this->db->where('id_kategoriMenu', $id);
+        $this->db->update('tbl_kategorimenu', $data);
+    }
 }
