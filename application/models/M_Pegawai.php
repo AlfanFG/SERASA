@@ -1,5 +1,5 @@
 <?php
-class M_dataMasterManajer extends CI_Model
+class M_Pegawai extends CI_Model
 {
     function __construct()
     {
@@ -20,7 +20,7 @@ class M_dataMasterManajer extends CI_Model
         // $tahun_sekarang = date('Y');
 
         $query = $this->db->query(
-            "SELECT IFNULL(MAX(SUBSTRING(id_pegawai,5)),0)+1 AS no_urut FROM tbl_pegawai"
+            "SELECT IFNULL(MAX(SUBSTRING(id_pegawai,5)),0)+1 AS no_urut FROM tbl_pegawai WHERE id_jabatan = 1"
         );
         $data = $query->row_array();
         $no_urut = sprintf("%'.04d", $data['no_urut']);
@@ -36,32 +36,37 @@ class M_dataMasterManajer extends CI_Model
         // $tahun_sekarang = date('Y');
 
         $query = $this->db->query(
-            "SELECT IFNULL(MAX(SUBSTRING(id_pegawai,5)),0)+1 AS no_urut FROM tbl_pegawai"
+            "SELECT IFNULL(MAX(SUBSTRING(id_pegawai,5)),0)+1 AS no_urut FROM tbl_pegawai WHERE id_jabatan = 2"
         );
         $data = $query->row_array();
         $no_urut = sprintf("%'.04d", $data['no_urut']);
 
         $id = 'B' . $no_urut;
 
-
         return $id;
     }
 
-    function insertPegawai()
+
+    function insertPegawai($data)
     {
-        $id = $this->idManajer();
-        $file_name = $_FILES['foto']['name'];
-
-        $data = array(
-            'id_pegawai' => $id,
-            'id_jabatan' => $this->input->post('idJabatan'),
-            'namaPegawai' => $this->input->post('namaPegawai'),
-            'tgl_lahir' => $this->input->post('tglLahir'),
-            'alamat' => $this->input->post('alamat'),
-            'no_telp' => $this->input->post('noTelp'),
-            'foto' => $file_name
-
-        );
         $this->db->insert('tbl_pegawai', $data);
+    }
+
+    function updatePegawai($data, $id)
+    {
+        $this->db->where('id_pegawai', $id);
+        $this->db->update('tbl_pegawai', $data);
+        return TRUE;
+    }
+
+    function deletePegawai($id)
+    {
+        $this->db->query("DELETE FROM tbl_pegawai WHERE id_pegawai = '" . $id . "'");
+    }
+
+    function getById($id)
+    {
+        $query = $this->db->query("SELECT * FROM tbl_pegawai WHERE id_pegawai = '" . $id . "'");
+        return $query->row_array();
     }
 }

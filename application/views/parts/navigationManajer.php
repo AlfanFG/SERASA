@@ -139,7 +139,7 @@
                             </a>
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
-                                    <a href="<?php echo site_url("DataMasterManajer"); ?>" class="nav-link">
+                                    <a href="<?php echo site_url("Pegawai"); ?>" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>Data Pegawai</p>
                                     </a>

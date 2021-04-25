@@ -10,91 +10,6 @@ $this->load->view('parts/navigationManajer');
 
 
 
-<!-- Edit -->
-<div aria-hidden="true" class="modal fade" id="edit-data" role="dialog" tabindex="-1">
-    <div class="modal-dialog">
-        <div class="modal-content">
-
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h4 class="modal-title">Edit Data User</h4>
-            </div>
-
-            <form method="POST" id="edit-d" action="<?php echo base_url('index.php/Customer/edit') ?>" enctype="multipart/form-data" role="form">
-                <div class="modal-body">
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label for="field-2" class="control-label">Customer ID</label>
-
-                                <input type="text" class="form-control" id="cust" name="cust" value="" readonly>
-                            </div>
-
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-md-6">
-
-                            <div class="form-group">
-                                <label for="field-2" class="control-label">Nama</label>
-                                <input type="hidden" class="form-control" id="id" name="id">
-                                <input type="text" class="form-control" id="Nama" autofocus="autofocus" name=Nama placeholder="Nama">
-                            </div>
-
-                        </div>
-
-
-
-                        <div class="col-md-6">
-
-                            <div class="form-group">
-                                <label for="field-3" class="control-label">Alamat</label>
-
-                                <input type="text" class="form-control" id="address" name=address placeholder="Alamat">
-                            </div>
-
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-md-6">
-
-                            <div class="form-group">
-                                <label for="field-4" class="control-label">No Telp.</label>
-
-                                <input type="number" class="form-control" id="phone" name=phone placeholder="No Telp.">
-                            </div>
-
-                        </div>
-
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                <label class="col-sm-3 control-label">Gender</label>
-
-                                <select class="form-control" name="gender" id="gender">
-                                    <option>-------------Select-------------</option>
-                                    <option value="L">L</option>
-                                    <option value="P">P</option>
-
-                                </select>
-                            </div>
-                        </div>
-
-
-                    </div>
-
-
-                </div>
-
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-success btnModalEdit">Kirim</button>
-            </form>
-        </div>
-    </div>
-</div>
-</div>
 
 <!-- Delete !-->
 <div class="modal fade" id="confirm-delete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -136,6 +51,7 @@ $this->load->view('parts/navigationManajer');
     <!-- /.content-header -->
 
     <!-- Main content -->
+    <?php echo $this->session->userdata('success'); ?>
     <section class="content">
         <div class="container-fluid">
             <!-- Small boxes (Stat box) -->
@@ -181,20 +97,23 @@ $this->load->view('parts/navigationManajer');
                                     foreach ($dataPegawai as $data) {
                                         echo "<tr>";
                                         echo "<td>" . $i . "</td>";
-                                        echo "<td class='kode'>" . $data['id_pegawai'] . "</td>";
-                                        echo "<td>" . $data['id_jabatan'] . "</td>";
-                                        echo "<td>" . $data['namaPegawai'] . "</td>";
-                                        echo "<td>" . $data['tgl_lahir'] . "</td>";
-                                        echo "<td>" . $data['alamat'] . "</td>";
-                                        echo "<td>" . $data['no_telp'] . "</td>";
-                                        echo "<td><img src= 'data:image;base64, " . base64_encode($data['foto']) . "' class='img-circle elevation-2' alt='User Image' width='50'></td>";
+                                        echo "<td class='idPeg'>" . $data['id_pegawai'] . "</td>";
+                                        echo "<td class='idJabat'>" . $data['id_jabatan'] . "</td>";
+                                        echo "<td class='namaPeg'>" . $data['namaPegawai'] . "</td>";
+                                        echo "<td class='tgl'>" . $data['tgl_lahir'] . "</td>";
+                                        echo "<td class='alm'>" . $data['alamat'] . "</td>";
+                                        echo "<td class='phone'>" . $data['no_telp'] . "</td>";
+                                        echo "<td class='img'><img src= " . base_url('assets/images/' . $data['foto']) . " class='img-circle elevation-2' alt='User Image' width='50'></td>";
+                                        echo "<td class='namaPoto' hidden>" . $data['foto'] . "</td>";
                                     ?>
 
                                         <td align='left'>
 
-                                            <button data-toggle="modal" data-target="#edit" id="btn-edit" class="btn btn-warning"><i class="fa fa-pencil"></i></button>
 
-                                            <button class="btn btn-danger" id="btnDel"><i class="fa fa-trash"></i></button>
+                                            <button class="btn btn-warning btn-edit"><i class="fa fa-pencil"></i></button>
+
+
+                                            <button class="btn btn-danger btn-del"><i class="fa fa-trash"></i></button>
 
 
 
@@ -248,7 +167,7 @@ $this->load->view('parts/navigationManajer');
                 </div>
 
                 <div class="modal-body">
-                    <form method="POST" id="insert_form" action="<?php echo site_url('DataMasterManajer/addPegawai'); ?>">
+                    <form method="POST" id="insert_form" action="<?php echo site_url('Pegawai/addPegawai'); ?>" enctype='multipart/form-data'>
                         <div class="row">
                             <div class="form-group">
 
@@ -275,19 +194,11 @@ $this->load->view('parts/navigationManajer');
 
                             </div>
 
-
                             <div class="col-md-6">
 
                                 <div class="form-group">
                                     <label for="field-2" class="control-label">ID Jabatan</label><br>
-
-
-                                    <select class="form-select form-select-sm" id="idJabatan" aria-label=".form-select-sm example" name="idJabatan">
-                                        <option selected>Pilih Role Pegawai</option>
-                                        <option value=1>Manajer</option>
-                                        <option value=2>Barista</option>
-
-                                    </select>
+                                    <input type="text" class="form-control" id="idJabatan" name="idJabatan" value="" readonly>
 
                                 </div>
 
@@ -299,7 +210,7 @@ $this->load->view('parts/navigationManajer');
                                 <div class="form-group">
                                     <label for="field-3" class="control-label">Nama Pegawai</label>
 
-                                    <input type="text" class="form-control" id="namaPegawai" name=namaPegawai placeholder="Nama Pegawai">
+                                    <input type="text" class="form-control" name=namaPegawai placeholder="Nama Pegawai">
                                 </div>
 
                             </div>
@@ -311,7 +222,122 @@ $this->load->view('parts/navigationManajer');
                                 <div class="form-group">
                                     <label for="field-4" class="control-label">Tanggal Lahir</label>
 
-                                    <input type="date" class="form-control" id="tglLahir" name=tglLahir placeholder="" required>
+                                    <input type="date" class="form-control" name=tglLahir placeholder="" required>
+                                </div>
+
+                            </div>
+
+                            <div class="col-md-6">
+
+                                <div class="form-group">
+                                    <label for="field-4" class="control-label">Alamat</label>
+
+                                    <input type="text" class="form-control" name="alamat" placeholder="Alamat" required>
+                                </div>
+
+                            </div>
+
+                            <div class="col-md-6">
+
+                                <div class="form-group">
+                                    <label for="field-4" class="control-label">No Telp</label>
+
+                                    <input type="text" class="form-control" name="noTelp" placeholder="Nomor Telepon" required>
+                                </div>
+
+                            </div>
+
+                            <div class="col-md-6">
+
+                                <div class="form-group">
+                                    <label for="field-4" class="control-label">Foto</label>
+
+                                    <input type="file" class="form-control" id="image" name="image" value="" placeholder="Add image" required>
+                                </div>
+                            </div>
+                        </div>
+
+
+
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                            <button type="submit" id="kirim" value="" class="btn btn-success btnModalInsert">Kirim</button>
+
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- edit data modal!-->
+
+    <div class="modal fade" id="modal-edit" role="dialog" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+
+                <div class="modal-header">
+                    <h5 class="modal-title">Input Data Customer</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+
+                </div>
+
+                <div class="modal-body">
+                    <form method="POST" id="insert_form" action="<?php echo site_url('Pegawai/editPegawai'); ?>" enctype='multipart/form-data'>
+                        <div class="row">
+                            <div class="form-group">
+
+                                <div class="col-md-6">
+                                    <label for="field-2" class="control-label">User Role</label>
+                                    <select class="form-select form-select-sm" id="userRole" aria-label=".form-select-sm example" name="userRole">
+                                        <option selected>Pilih Role Pegawai</option>
+                                        <option value="1">Manajer</option>
+                                        <option value="2">Barista</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6">
+
+                                <div class="form-group">
+                                    <label for="field-2" class="control-label">ID Pegawai</label>
+
+                                    <input type="text" class="form-control" id="idPegawaiEdit" name="idPegawai" value="" readonly>
+                                </div>
+
+                            </div>
+
+                            <div class="col-md-6">
+
+                                <div class="form-group">
+                                    <label for="field-2" class="control-label">ID Jabatan</label><br>
+                                    <input type="text" class="form-control" id="idJabatanEdit" name="idJabatan" value="" readonly>
+
+                                </div>
+
+                            </div>
+
+
+                            <div class="col-md-6">
+
+                                <div class="form-group">
+                                    <label for="field-3" class="control-label">Nama Pegawai</label>
+
+                                    <input type="text" class="form-control" id="namaPegawai" name="namaPegawai" placeholder="Nama Pegawai">
+                                </div>
+
+                            </div>
+
+
+
+                            <div class="col-md-6">
+
+                                <div class="form-group">
+                                    <label for="field-4" class="control-label">Tanggal Lahir</label>
+
+                                    <input type="date" class="form-control" id="tglLahir" name="tglLahir" placeholder="" required>
                                 </div>
 
                             </div>
@@ -340,92 +366,144 @@ $this->load->view('parts/navigationManajer');
 
                                 <div class="form-group">
                                     <label for="field-4" class="control-label">Foto</label>
-
-                                    <input type="file" class="form-control" id="foto" name="foto" placeholder="Foto" required>
+                                    <div id="img"></div>
+                                    <input type="file" class="form-control-fileho" id="image" name="image" value="" placeholder="Add image">
                                 </div>
                             </div>
                         </div>
+                        <input type="hidden" id="old_image" name="old_image" value="">
+
 
                         <div class="modal-footer">
                             <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                            <button type="submit" class="btn btn-success btnModalInsert">Kirim</button>
+                            <button type="submit" id="kirim" value="" class="btn btn-success btnModalInsert">Kirim</button>
+
+                        </div>
                     </form>
                 </div>
             </div>
         </div>
     </div>
+
+    <div class="modal fade" id="modal-delete" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Warning</h5>
+
+                </div>
+                <div class="modal-body">
+                    <h4>Apakah anda Yakin?</h4>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                    <a class="btn btn-danger" id="btn-delete">Delete</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
 </div>
+
 <!-- /.c !-->
 <?php
 $this->load->view('parts/footer');
 ?>
 <script type="text/javascript">
+    $('#btn-tambah').click(function() {
+        $('#modal-insert').modal('show');
+    });
+
     $(document).ready(function() {
+        $("select#userRole").change(function() {
+            var selectedValue = $(this).children("option:selected").val();
+            // $('#idPegawai').val(selectedValue);
+            $.post("<?php echo base_url() . "Pegawai/getId"; ?>", {
+                // id: $("#barang optionConfusedelected").val()
+            }, function(data) {
+                var data1 = new Array();
+                data1 = JSON.parse(data);
+                if (selectedValue == 1) {
 
-        $('#btn-tambah').click(function() {
-            $('#modal-insert').modal('show');
-        });
+                    $('#idPegawai').val(data1[0]);
+                    $('#idJabatan').val(1);
+                } else {
+                    $('#idJabatan').val(2);
+                    $('#idPegawai').val(data1[1]);
+                }
 
-        $(document).ready(function() {
-            $("select#userRole").change(function() {
-                var selectedValue = $(this).children("option:selected").val();
-                // $('#idPegawai').val(selectedValue);
-                $.post("<?php echo base_url() . "DataMasterManajer/getId"; ?>", {
-                    // id: $("#barang optionConfusedelected").val()
-                }, function(data) {
-                    var data1 = new Array();
-                    data1 = JSON.parse(data);
-                    if (selectedValue == 1) {
-                        $('#idPegawai').val(data1[0]);
-                    } else
-                        $('#idPegawai').val(data1[1]);
 
-                });
             });
         });
+    });
 
-        //DELETE
-        //----------
-        // $('#dataPegawai').on('click', '.sweet-14', function() {
-        //     var idPegawai = $(this).closest('tr').find('td:eq(1)').text();
-        //     var url = '<?php echo base_url() ?>index.php/Customer/Delete/' + idPegawai;
+    //DELETE
+    //----------
+    // $('#dataPegawai').on('click', '.sweet-14', function() {
+    //     var idPegawai = $(this).closest('tr').find('td:eq(1)').text();
+    //     var url = '<?php echo base_url() ?>index.php/Customer/Delete/' + idPegawai;
 
-        //     // $('form').attr('action');
-
-
-        //     swal({
-        //         title: "Apakah Anda Yakin?",
-        //         text: "Anda Akan Mendelete Data " + idPegawai,
-        //         type: "error",
-        //         showCancelButton: true,
-        //         confirmButtonClass: 'btn-danger delete',
-        //         confirmButtonText: 'Delete'
-        //     });
-
-        //     $('.delete').click(function() {
-        //         $.get(url, function() {
-        //             location.reload();
-        //         });
-        //     });
-
-        // });
+    //     // $('form').attr('action');
 
 
+    //     swal({
+    //         title: "Apakah Anda Yakin?",
+    //         text: "Anda Akan Mendelete Data " + idPegawai,
+    //         type: "error",
+    //         showCancelButton: true,
+    //         confirmButtonClass: 'btn-danger delete',
+    //         confirmButtonText: 'Delete'
+    //     });
+
+    //     $('.delete').click(function() {
+    //         $.get(url, function() {
+    //             location.reload();
+    //         });
+    //     });
+
+    // });
+
+
+
+    $("#tablePegawai").on('click', '.btn-edit', function() {
+        // get the current row
+        var currentRow = $(this).closest("tr");
+        var idPegawai = currentRow.find("td:eq(1)").text(); // get current row 2nd TD
+        var idJabatan = currentRow.find("td:eq(2)").text(); // get current row 3rd TD
+        var namaPegawai = currentRow.find("td:eq(3)").text();
+        var tglLahir = currentRow.find("td:eq(4)").text();
+        var alamat = currentRow.find("td:eq(5)").text();
+        var nomorTelepon = currentRow.find("td:eq(6)").text();
+        var image = currentRow.find("td:eq(8)").text();
+        $('#modal-edit').modal('show');
+        $('#idPegawaiEdit').val(idPegawai);
+        $('#idJabatanEdit').val(idJabatan);
+        $('#namaPegawai').val(namaPegawai);
+        $('#tglLahir').val(tglLahir);
+        $('#alamat').val(alamat);
+        $('#noTelp').val(nomorTelepon);
+        $('#namaPoto').val(image);
+        $('#img').html('<img src=http://localhost:8080/SERASA/assets/images/' + image + ' class="img-circle elevation-2" alt="User Image" width="50">');
+        $('#old_image').val(image);
 
     });
 
+    $("#tablePegawai").on('click', '.btn-del', function() {
+        // get the current row
+        $('#modal-delete').modal('show');
+        var currentRow = $(this).closest("tr");
+        var idPegawai = currentRow.find("td:eq(1)").text(); // get id pegawai
 
+        var url = "<?php echo base_url() ?>Pegawai/deletePegawai/" + idPegawai;
 
-    $(document).ready(function() {
-        $('#edit-data').on('show.bs.modal', function(event) {
-            var div = $(event.relatedTarget)
-            var modal = $(this)
-            modal.find('#idPegawai').attr("value", div.data('id'));
-            modal.find('#namaPegawai').attr("value", div.data('nama'));
-            modal.find('#tglLahir').attr("value", div.data('tglLahir'));
-            modal.find('#alamat').attr("value", div.data('alamat'));
-            modal.find('#noTelp').val(div.data('noTelp'));
-
-        });
+        $('#btn-delete').click(function() {
+            $.get(url, function() {
+                location.reload();
+            });
+        })
     });
 </script>
