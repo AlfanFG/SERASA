@@ -11,9 +11,10 @@ class Pegawai extends CI_Controller
         if ($this->session->userdata('status') != "login") {
             redirect(base_url("login"));
         }
-
+        $this->load->library('form_validation');
         $this->load->model('M_Pegawai');
         $this->load->helper('file');
+        $this->load->database();
     }
     //data pegawai  
     public function index()
@@ -49,9 +50,31 @@ class Pegawai extends CI_Controller
             return $name;
         }
     }
-
+    public function dob_check($str)
+    {
+        $newDate = date("Y-m-d", strtotime($str));
+        if (!DateTime::createFromFormat('Y-m-d', $newDate)) { //yes it's YYYY-MM-DD
+            $this->form_validation->set_message('dob_check', 'The {field} has not a valid date format');
+            return FALSE;
+        } else {
+            return TRUE;
+        }
+    }
     public function addPegawai()
     {
+
+        // $this->form_validation->set_rules('idPegawai', 'ID Pegawai', 'required');
+        // $this->form_validation->set_rules('idJabatan', 'ID Jabatan', 'required');
+        // $this->form_validation->set_rules('namaPegawai', 'Nama Pegawai', 'required|max_length[50]');
+        // $this->form_validation->set_rules('tglLahir', 'Tanggal Lahir', 'required');
+        // $this->form_validation->set_rules('alamat', 'Alamat', 'required|max_length[50]');
+        // $this->form_validation->set_rules('noTelp', 'Tujuan Peminjaman', 'numeric|xss_clean');
+        // if (empty($_FILES['image']['name'])) {
+        //     $this->form_validation->set_rules('image', 'Foto', 'required');
+        // }
+
+
+        // if ($this->form_validation->run()) {
 
         $data = array(
             'id_pegawai' => $this->input->post('idPegawai'),
@@ -66,6 +89,11 @@ class Pegawai extends CI_Controller
         $this->M_Pegawai->insertPegawai($data);
 
         redirect('Pegawai');
+        // } else {
+        //     $data['dataPegawai'] = $this->M_Pegawai->getDataPegawai();
+        //     $this->load->view('manajer/v_dataPegawai', $data);
+        // }
+
 
         // $insert = $this->M_Pegawai->insertGambar($name);
     }
