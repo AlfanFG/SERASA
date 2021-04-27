@@ -23,15 +23,11 @@ class StockBarang extends CI_Controller
 
     public function tambahBarang()
     {
-
-        $dataBarang['stockBarang'] = $this->databarang_m->getAllBarang();
-
         $this->form_validation->set_rules('idBarang', 'Id Barang', 'required|trim');
         $this->form_validation->set_rules('idMenu', 'Id Menu', 'required|trim');
         $this->form_validation->set_rules('namaBarang', 'Nama Barang', 'required|trim');
         $this->form_validation->set_rules('qty', 'Quantity', 'required|trim');
         if ($this->form_validation->run() == FALSE) {
-
             $this->load->view('barista/StockBarang/stockbarang');
         } else {
 
@@ -40,9 +36,22 @@ class StockBarang extends CI_Controller
         }
     }
 
-    function hapusBarang($id_barang)
+    public function hapusBarang($id_barang)
     {
         $this->databarang_m->hapusBarang($id_barang);
         redirect('StockBarang');
+    }
+
+
+    public function editBarang($id_barang)
+    {
+        $this->form_validation->set_rules('namaBarang', 'Nama Barang', 'required|trim');
+        $this->form_validation->set_rules('qty', 'Quantity', 'required|trim');
+        if ($this->form_validation->run() == FALSE) {
+            $this->load->view('barista/StockBarang/stockbarang');
+        } else {
+            $this->databarang_m->editBarang($id_barang);
+            redirect('StockBarang');
+        }
     }
 }
