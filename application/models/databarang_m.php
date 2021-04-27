@@ -2,8 +2,6 @@
 
 class databarang_m extends CI_Model
 {
-
-
     public function getAllBarang()
     {
         return $this->db->get('tbl_barang')->result_array();
@@ -27,7 +25,7 @@ class databarang_m extends CI_Model
     {
         $data = [
             "id_barang" => $this->input->post('idBarang'),
-            "id_menu" => $this->input->post('idBarang'),
+            "id_menu" => $this->input->post('idMenu'),
             "namaBarang" => $this->input->post('namaBarang'),
             "qty" => $this->input->post('qty')
         ];
@@ -38,5 +36,15 @@ class databarang_m extends CI_Model
     {
         $this->db->where('id_barang', $id_barang);
         $this->db->delete('tbl_barang');
+    }
+
+    function editBarang($id_barang)
+    {
+        $data = [
+            "namaBarang" => $this->input->post('namaBarang'),
+            "qty" => $this->input->post('qty')
+        ];
+        $this->db->where('id_barang', $id_barang);
+        $this->db->update('tbl_barang', $data);
     }
 }
