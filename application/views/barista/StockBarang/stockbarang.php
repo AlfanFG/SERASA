@@ -62,7 +62,7 @@ $this->load->view('parts_barista/navigation');
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form method="post" action="<?= base_url(); ?>StockBarang/tambahBarang">
+                    <form method="post" id="form-tambahStock" action="<?= base_url(); ?>StockBarang/tambahBarang">
                         <div class="form-group">
                             <label class="control-label" for="idBarang">ID Barang</label>
                             <input type="text" name="idBarang" class="form-control" id="idBarang" required>
@@ -83,9 +83,28 @@ $this->load->view('parts_barista/navigation');
                         </div>
                         <div class="modal-footer">
                             <button type="reset" class="btn btn-danger" data-dismiss="modal">Reset</button>
-                            <input type="submit" class="btn btn-success" name="tambah" value="Simpan">
+                            <input type="button" class="btn btn-success btn-ModalInsert" name="tambah" value="Simpan">
                         </div>
                     </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Modal Konfirmasi Tambah Data -->
+    <div class="modal fade" id="modal-ConfirmTambah" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Warning</h5>
+
+                </div>
+                <div class="modal-body">
+                    <h4>Apakah anda Yakin?</h4>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                    <button type="submit" class="btn btn-danger" id="btn-simpan">Simpan</button>
                 </div>
             </div>
         </div>
@@ -122,7 +141,7 @@ $this->load->view('parts_barista/navigation');
                     </button>
                 </div>
                 <div class="modal-body">
-                    <h6 class="modal-title" id="databarang">Apakah anda yakin akan menghapus data dengan id : <span id="idDeleteText"></span> </h6>
+                    <h6 class="modal-title" id="databarang">Apakah anda yakin akan menghapus data ini <span id="idDeleteText"></span> </h6>
                 </div>
                 <div class="modal-footer">
                     <form id="formDelete" action="" method="POST">
@@ -150,7 +169,7 @@ $this->load->view('parts_barista/navigation');
                         </button>
                     </div>
                     <div class="modal-body">
-                        <form method="post" action="<?= base_url(); ?>StockBarang/editBarang/<?= $brg['id_barang']; ?>">
+                        <form method="post" id="form-UpdateStock" action="<?= base_url(); ?>StockBarang/editBarang/<?= $brg['id_barang']; ?>">
                             <div class="form-group">
                                 <label class="control-label" for="idBarang">ID Barang</label>
                                 <input type="text" name="idBarang" class="form-control" id="idBarang" value="<?= $brg['id_barang']; ?>" disabled>
@@ -171,7 +190,7 @@ $this->load->view('parts_barista/navigation');
                             </div>
                             <div class="modal-footer">
                                 <button type="reset" class="btn btn-danger" data-dismiss="modal">Reset</button>
-                                <input type="submit" class="btn btn-success" name="tambah" value="Simpan">
+                                <input type="button" class="btn btn-success btn-ModalUpdate" name="tambah" value="Simpan">
                             </div>
                         </form>
                     </div>
@@ -179,7 +198,47 @@ $this->load->view('parts_barista/navigation');
             </div>
         </div>
     <?php endforeach; ?>
+    <!-- Modal Konfirmasi Ubah Data -->
+    <div class="modal fade" id="modal-ConfirmUbah" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Warning</h5>
+
+                </div>
+                <div class="modal-body">
+                    <h4>Apakah anda Yakin?</h4>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                    <button type="submit" class="btn btn-danger" id="btn-Update">Simpan</button>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 <?php
 $this->load->view('parts_barista/footer');
 ?>
+<script type="text/javascript">
+    // Show Modal Konfirmasi Tambah Data Stock
+    $('.btn-ModalInsert').click(function() {
+        $('#modal-ConfirmTambah').modal('show');
+    });
+
+    // Save Data Stock
+    $('#btn-simpan').click(function() {
+        $('#form-tambahStock').submit();
+    });
+
+    // Show Modal Konfirmasi Ubah Data Stock
+    $('.btn-ModalUpdate').click(function() {
+        $('#modal-ConfirmUbah').modal('show');
+    });
+
+    // Update Data Stock
+    $('#btn-Update').click(function() {
+        $('#form-UpdateStock').submit();
+    });
+</script>
