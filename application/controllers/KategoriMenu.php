@@ -18,7 +18,7 @@ class KategoriMenu extends CI_Controller
     public function index()
     {
         $dataKategori['kategoriMenu'] = $this->KategoriMenu_m->getAllKategoriMenu();
-        $this->load->view('barista/KategoriMenu', $dataKategori);
+        $this->load->view('barista/v_dataKategoriMenu', $dataKategori);
     }
     public function tambah()
     {
@@ -29,7 +29,7 @@ class KategoriMenu extends CI_Controller
         $this->form_validation->set_rules('namaKategori', 'Nama Kategori', 'required|trim');
         if ($this->form_validation->run() == FALSE) {
 
-            $this->load->view('barista/KategoriMenu');
+            $this->load->view('barista/v_dataKategoriMenu');
         } else {
 
             $this->KategoriMenu_m->addKategoriMenu();
@@ -48,13 +48,14 @@ class KategoriMenu extends CI_Controller
         redirect('KategoriMenu');
     }
 
-    public function update($id)
+    public function update()
     {
+        $id = $this->input->post('idKategori');
         $this->form_validation->set_rules('namaKategori', 'Nama Kategori', 'required|trim');
 
         if ($this->form_validation->run() == FALSE) {
 
-            $this->load->view('barista/KategoriMenu');
+            $this->load->view('barista/v_dataKategoriMenu');
         } else {
 
             $this->KategoriMenu_m->updateKategoriMenu($id);

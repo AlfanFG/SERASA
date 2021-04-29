@@ -23,7 +23,7 @@
 					<div class="col-md-7">
 						<div class="card-body">
 							<div class="brand-wrapper">
-								<img src="<?= base_url('/assets/images/logo.png'); ?>" alt="logo" class="logo">
+								<img src="<?= base_url('/assets/images/logo.png'); ?>" alt="logo" width="80" height="80">
 
 							</div>
 							<p class="login-card-description">Sign into your account</p>
