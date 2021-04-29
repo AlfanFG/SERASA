@@ -7,10 +7,6 @@ $this->load->view('parts/navigationManajer');
 
 
 
-
-
-
-
 <!-- Delete !-->
 <div class="modal fade" id="confirm-delete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog">
@@ -167,7 +163,9 @@ $this->load->view('parts/navigationManajer');
                 </div>
 
                 <div class="modal-body">
-                    <form method="POST" id="insert_form" action="<?php echo site_url('Pegawai/addPegawai'); ?>" enctype='multipart/form-data'>
+                    <?php echo validation_errors(); ?>
+                    <form method="POST" id="insert_form" enctype='multipart/form-data'>
+
                         <div class="row">
                             <div class="form-group">
 
@@ -178,6 +176,7 @@ $this->load->view('parts/navigationManajer');
                                         <option value="1">Manajer</option>
                                         <option value="2">Barista</option>
                                     </select>
+
                                 </div>
                             </div>
 
@@ -189,7 +188,8 @@ $this->load->view('parts/navigationManajer');
                                 <div class="form-group">
                                     <label for="field-2" class="control-label">ID Pegawai</label>
 
-                                    <input type="text" class="form-control" id="idPegawai" name="idPegawai" value="" readonly>
+                                    <input type="text" class="form-control" id="idPegawai" name="idPegawai" value="" readonly required>
+                                    <?php echo form_error('idPegawai'); ?>
                                 </div>
 
                             </div>
@@ -198,8 +198,8 @@ $this->load->view('parts/navigationManajer');
 
                                 <div class="form-group">
                                     <label for="field-2" class="control-label">ID Jabatan</label><br>
-                                    <input type="text" class="form-control" id="idJabatan" name="idJabatan" value="" readonly>
-
+                                    <input type="text" class="form-control" id="idJabatan" name="idJabatan" value="" readonly required>
+                                    <?php echo form_error('idJabatan'); ?>
                                 </div>
 
                             </div>
@@ -210,7 +210,8 @@ $this->load->view('parts/navigationManajer');
                                 <div class="form-group">
                                     <label for="field-3" class="control-label">Nama Pegawai</label>
 
-                                    <input type="text" class="form-control" name=namaPegawai placeholder="Nama Pegawai">
+                                    <input type="text" class="form-control" id="namaPegawai" value="" name="namaPegawai" placeholder="Nama Pegawai" required>
+                                    <?php echo form_error('namaPegawai'); ?>
                                 </div>
 
                             </div>
@@ -222,7 +223,8 @@ $this->load->view('parts/navigationManajer');
                                 <div class="form-group">
                                     <label for="field-4" class="control-label">Tanggal Lahir</label>
 
-                                    <input type="date" class="form-control" name=tglLahir placeholder="" required>
+                                    <input type="date" class="form-control" id="tglLahir" value="" name="tglLahir" placeholder="" required>
+                                    <?php echo form_error('tglLahir'); ?>
                                 </div>
 
                             </div>
@@ -232,122 +234,8 @@ $this->load->view('parts/navigationManajer');
                                 <div class="form-group">
                                     <label for="field-4" class="control-label">Alamat</label>
 
-                                    <input type="text" class="form-control" name="alamat" placeholder="Alamat" required>
-                                </div>
-
-                            </div>
-
-                            <div class="col-md-6">
-
-                                <div class="form-group">
-                                    <label for="field-4" class="control-label">No Telp</label>
-
-                                    <input type="text" class="form-control" name="noTelp" placeholder="Nomor Telepon" required>
-                                </div>
-
-                            </div>
-
-                            <div class="col-md-6">
-
-                                <div class="form-group">
-                                    <label for="field-4" class="control-label">Foto</label>
-
-                                    <input type="file" class="form-control" id="image" name="image" value="" placeholder="Add image" required>
-                                </div>
-                            </div>
-                        </div>
-
-
-
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                            <button type="submit" id="kirim" value="" class="btn btn-success btnModalInsert">Kirim</button>
-
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- edit data modal!-->
-
-    <div class="modal fade" id="modal-edit" role="dialog" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-
-                <div class="modal-header">
-                    <h5 class="modal-title">Input Data Customer</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-
-                </div>
-
-                <div class="modal-body">
-                    <form method="POST" id="insert_form" action="<?php echo site_url('Pegawai/editPegawai'); ?>" enctype='multipart/form-data'>
-                        <div class="row">
-                            <div class="form-group">
-
-                                <div class="col-md-6">
-                                    <label for="field-2" class="control-label">User Role</label>
-                                    <select class="form-select form-select-sm" id="userRole" aria-label=".form-select-sm example" name="userRole">
-                                        <option selected>Pilih Role Pegawai</option>
-                                        <option value="1">Manajer</option>
-                                        <option value="2">Barista</option>
-                                    </select>
-                                </div>
-                            </div>
-
-                        </div>
-
-                        <div class="row">
-                            <div class="col-md-6">
-
-                                <div class="form-group">
-                                    <label for="field-2" class="control-label">ID Pegawai</label>
-
-                                    <input type="text" class="form-control" id="idPegawaiEdit" name="idPegawai" value="" readonly>
-                                </div>
-
-                            </div>
-
-                            <div class="col-md-6">
-
-                                <div class="form-group">
-                                    <label for="field-2" class="control-label">ID Jabatan</label><br>
-                                    <input type="text" class="form-control" id="idJabatanEdit" name="idJabatan" value="" readonly>
-
-                                </div>
-
-                            </div>
-
-
-                            <div class="col-md-6">
-
-                                <div class="form-group">
-                                    <label for="field-3" class="control-label">Nama Pegawai</label>
-
-                                    <input type="text" class="form-control" id="namaPegawai" name="namaPegawai" placeholder="Nama Pegawai">
-                                </div>
-
-                            </div>
-
-
-
-                            <div class="col-md-6">
-
-                                <div class="form-group">
-                                    <label for="field-4" class="control-label">Tanggal Lahir</label>
-
-                                    <input type="date" class="form-control" id="tglLahir" name="tglLahir" placeholder="" required>
-                                </div>
-
-                            </div>
-
-                            <div class="col-md-6">
-
-                                <div class="form-group">
-                                    <label for="field-4" class="control-label">Alamat</label>
-
-                                    <input type="text" class="form-control" id="alamat" name="alamat" placeholder="Alamat" required>
+                                    <input type="text" class="form-control" id="alamat" value="" name="alamat" placeholder="Alamat" required>
+                                    <?php echo form_error('alamat'); ?>
                                 </div>
 
                             </div>
@@ -358,32 +246,53 @@ $this->load->view('parts/navigationManajer');
                                     <label for="field-4" class="control-label">No Telp</label>
 
                                     <input type="text" class="form-control" id="noTelp" name="noTelp" placeholder="Nomor Telepon" required>
+                                    <?php echo form_error('noTelp'); ?>
                                 </div>
 
                             </div>
 
                             <div class="col-md-6">
-
                                 <div class="form-group">
                                     <label for="field-4" class="control-label">Foto</label>
                                     <div id="img"></div>
-                                    <input type="file" class="form-control-fileho" id="image" name="image" value="" placeholder="Add image">
+
+                                    <input type="hidden" id="old_image" name="old_image" value="">
                                 </div>
                             </div>
                         </div>
-                        <input type="hidden" id="old_image" name="old_image" value="">
 
 
                         <div class="modal-footer">
                             <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                            <button type="submit" id="kirim" value="" class="btn btn-success btnModalInsert">Kirim</button>
+                            <button type="button" onclick="showModal()" value="" class="btn btn-success btnModalInsert">Kirim</button>
 
                         </div>
-                    </form>
+
+
                 </div>
             </div>
         </div>
     </div>
+    <div class="modal fade" id="modal-confirm" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Warning</h5>
+
+                </div>
+                <div class="modal-body">
+                    <h4>Apakah anda Yakin?</h4>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                    <input type="submit" id="btn-save" class="btn btn-primary" value="Save" id="btn-save">
+                </div>
+            </div>
+        </div>
+    </div>
+    </form>
+
 
     <div class="modal fade" id="modal-delete" tabindex="-1" role="dialog" aria-hidden="true">
         <div class="modal-dialog">
@@ -404,6 +313,27 @@ $this->load->view('parts/navigationManajer');
         </div>
     </div>
 
+    <div class="modal fade" id="modal-info" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Information</h5>
+
+                </div>
+                <div class="modal-body">
+                    <h4>Data telah disimpan</h4>
+
+                </div>
+                <div class="modal-footer">
+                    <a href="<?php echo site_url('Pegawai'); ?>" class="btn btn-default">Oke</a>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
 
 
 
@@ -414,7 +344,12 @@ $this->load->view('parts/navigationManajer');
 $this->load->view('parts/footer');
 ?>
 <script type="text/javascript">
+    var status;
     $('#btn-tambah').click(function() {
+        $('#img').append(`<input type="file" class="form-control" id="image" name="image" value="" placeholder="Add image">
+                                    <?php echo form_error('image'); ?>`);
+        $('#insert_form')[0].reset();
+        $('#btn-save').val('Save');
         $('#modal-insert').modal('show');
     });
 
@@ -441,36 +376,12 @@ $this->load->view('parts/footer');
         });
     });
 
-    //DELETE
-    //----------
-    // $('#dataPegawai').on('click', '.sweet-14', function() {
-    //     var idPegawai = $(this).closest('tr').find('td:eq(1)').text();
-    //     var url = '<?php echo base_url() ?>index.php/Customer/Delete/' + idPegawai;
-
-    //     // $('form').attr('action');
-
-
-    //     swal({
-    //         title: "Apakah Anda Yakin?",
-    //         text: "Anda Akan Mendelete Data " + idPegawai,
-    //         type: "error",
-    //         showCancelButton: true,
-    //         confirmButtonClass: 'btn-danger delete',
-    //         confirmButtonText: 'Delete'
-    //     });
-
-    //     $('.delete').click(function() {
-    //         $.get(url, function() {
-    //             location.reload();
-    //         });
-    //     });
-
-    // });
-
 
 
     $("#tablePegawai").on('click', '.btn-edit', function() {
         // get the current row
+        status = '';
+        $('#btn-save').val('Update');
         var currentRow = $(this).closest("tr");
         var idPegawai = currentRow.find("td:eq(1)").text(); // get current row 2nd TD
         var idJabatan = currentRow.find("td:eq(2)").text(); // get current row 3rd TD
@@ -479,16 +390,95 @@ $this->load->view('parts/footer');
         var alamat = currentRow.find("td:eq(5)").text();
         var nomorTelepon = currentRow.find("td:eq(6)").text();
         var image = currentRow.find("td:eq(8)").text();
-        $('#modal-edit').modal('show');
-        $('#idPegawaiEdit').val(idPegawai);
-        $('#idJabatanEdit').val(idJabatan);
+        $('#modal-insert').modal('show');
+        $('#idPegawai').val(idPegawai);
+        $('#idJabatan').val(idJabatan);
         $('#namaPegawai').val(namaPegawai);
         $('#tglLahir').val(tglLahir);
         $('#alamat').val(alamat);
         $('#noTelp').val(nomorTelepon);
         $('#namaPoto').val(image);
-        $('#img').html('<img src=http://localhost:8080/SERASA/assets/images/' + image + ' class="img-circle elevation-2" alt="User Image" width="50">');
         $('#old_image').val(image);
+
+        $('#img').html('<img src=http://localhost:8080/SERASA/assets/images/' + image + ' class="img-circle elevation-2" alt="User Image" width="50">');
+        $('#img').append('<br><br><button type="button" id="btn-muncul">Change Foto</button>');
+        let i = 0;
+        $('#btn-muncul').click(function() {
+            i++;
+            status = "change";
+            if (i > 1) {
+                $('input[type="file"]').prop("focus", true);
+            } else {
+                $('#img').append(`<input type="file" class="form-control" id="image" name="image" value="" placeholder="Add image">
+                                    <?php echo form_error('image'); ?>`);
+            }
+
+
+
+        })
+
+
+
+        $('#old_image').val(image);
+
+    });
+
+
+
+    function showModal() {
+        $('input[type=text]').filter('[required]').each(function() {
+            if ($(this).val() === '') {
+
+
+            } else {
+                $('#modal-insert').modal('hide');
+                $('#modal-confirm').modal('show');
+            }
+
+        });
+
+    }
+    $(document).ready(function() {
+        $('#insert_form').on('submit', function(event) {
+            event.preventDefault();
+            var fd;
+            var files;
+            var URL;
+            if ($('#btn-save').val() == 'Save') {
+                URL = "<?php echo site_url('Pegawai/addPegawai'); ?>";
+                fd = new FormData(this);
+                files = $('#image')[0].files;
+                fd.append('image', files[0]);
+            } else {
+
+                if (status == 'change') {
+                    fd = new FormData(this);
+                    files = $('#image')[0].files;
+                    fd.append('image', files[0]);
+
+                } else {
+                    fd = new FormData(this);
+                }
+                URL = "<?php echo site_url('Pegawai/editPegawai'); ?>";
+            }
+
+
+            $.ajax({
+                ///nambah url
+                url: URL,
+                method: "POST",
+                contentType: false,
+                processData: false,
+                data: fd,
+                success: function(data) {
+                    console.log(data.namaPegawai);
+                    $('#modal-confirm').modal('hide');
+                    $('#modal-info').modal('show');
+                }
+            });
+
+        });
+
 
     });
 
