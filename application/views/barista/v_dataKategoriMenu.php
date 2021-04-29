@@ -150,15 +150,15 @@ $this->load->view('parts_barista/footer');
             </div>
 
             <div class="modal-body">
-                <form method="post" id="update_form" action="<?= base_url(); ?>KategoriMenu/update/<?= $kategori['id_kategoriMenu']; ?>">
+                <form method="post" id="update_form" action="<?= base_url(); ?>KategoriMenu/update/">
                     <div class="form-group">
                         <label class="control-label" for="idKategori">ID Kategori</label>
-                        <input type="text" name="idKategori" class="form-control" id="updateIdKategori" value="<?php echo $kategori['id_kategoriMenu'] ?>" required readonly>
+                        <input type="text" name="idKategori" class="form-control" id="updateIdKategori" required readonly>
                     </div>
 
                     <div class="form-group">
                         <label class="control-label" for="namaKategori">Nama Kategori</label>
-                        <input type="text" name="namaKategori" class="form-control" id="updateNamaKategori" value="<?php echo $kategori['namaKategori'] ?>" required>
+                        <input type="text" name="namaKategori" class="form-control" id="updateNamaKategori" required>
                     </div>
 
                     <div class="modal-footer">

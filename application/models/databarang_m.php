@@ -42,7 +42,7 @@ class databarang_m extends CI_Model
     {
         $data = [
             "namaBarang" => $this->input->post('namaBarang'),
-            "qty" => $this->input->post('qty')
+            "qty" => $this->input->post('Qty')
         ];
         $this->db->where('id_barang', $id_barang);
         $this->db->update('tbl_barang', $data);

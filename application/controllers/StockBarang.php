@@ -43,14 +43,15 @@ class StockBarang extends CI_Controller
     }
 
 
-    public function editBarang($id_barang)
+    public function editBarang()
     {
+        $id = $this->input->post('idBarang');
         $this->form_validation->set_rules('namaBarang', 'Nama Barang', 'required|trim');
-        $this->form_validation->set_rules('qty', 'Quantity', 'required|trim');
+        $this->form_validation->set_rules('Qty', 'Quantity', 'required|trim');
         if ($this->form_validation->run() == FALSE) {
             $this->load->view('barista/StockBarang/stockbarang');
         } else {
-            $this->databarang_m->editBarang($id_barang);
+            $this->databarang_m->editBarang($id);
             redirect('StockBarang');
         }
     }
