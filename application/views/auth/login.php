@@ -35,7 +35,7 @@
 								</div>
 								<div class="form-group mb-4">
 									<label for="password" class="sr-only">Password</label>
-									<input type="password" name="password" id="password" class="form-control" placeholder="***********">
+									<input type="password" name="password" id="password" class="form-control" placeholder="*****">
 									<?= form_error('password', '<small class="text-danger">', '</small>'); ?>
 								</div>
 								<input type="submit" name="login" id="login" class="btn btn-block login-btn mb-4" value="Login">

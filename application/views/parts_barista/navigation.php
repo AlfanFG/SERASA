@@ -147,7 +147,7 @@
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="pages/charts/flot.html" class="nav-link">
+                                    <a class="nav-link" href="<?= base_url(); ?>Menu_c">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>Data Menu</p>
                                     </a>
