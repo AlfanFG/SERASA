@@ -55,15 +55,14 @@
                     </a>
                 </li>
                 <li class="nav-item dropdown">
+                    <?php $foto = $this->session->userdata("foto");  ?>
 
-                    <?php
-                    echo "<a href='#' data-toggle='dropdown' class='nav-link' role='button'><img src= 'data:image;base64, " . base64_encode($this->session->userdata("foto")) . "' class='img-circle image' alt='User Image'></a>";
-                    ?>
+                    <a href='#' data-toggle='dropdown' class='nav-link' role='button'><img src="<?php echo base_url('assets/images/' . $foto) ?>" alt="User" class='img-circle image' alt='User Image'></a>
 
                     <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
 
                         <div class="dropdown-divider"></div>
-                        <a href="#" class="dropdown-item">
+                        <a href="<?= site_url('auth/logout') ?>" class="dropdown-item">
                             <i class="fa fa-sign-out" aria-hidden="true"> Logout</i>
 
                         </a>
@@ -92,9 +91,8 @@
                 <!-- Sidebar user panel (optional) -->
                 <div class="user-panel mt-3 pb-3 mb-3 d-flex">
                     <div class="image">
-                        <?php
-                        echo "<img src= 'data:image;base64, " . base64_encode($this->session->userdata("foto")) . "' class='img-circle elevation-2' alt='User Image'>";
-                        ?>
+                        <?php $foto = $this->session->userdata("foto");  ?>
+                        <img src="<?php echo base_url('assets/images/' . $foto) ?>" alt="User">
 
                     </div>
                     <div class="info">
@@ -114,22 +112,30 @@
                     </div>
                 </div>
 
+
                 <!-- Sidebar Menu -->
                 <nav class="mt-2">
                     <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                         <!-- Add icons to the links using the .nav-icon class
-               with font-awesome or any other icon font library -->
+                 with font-awesome or any other icon font library -->
                         <li class="nav-item menu-open">
-                            <a href="<?php echo site_url('Manajer') ?>" class="nav-link active">
+                            <a href="<?php echo site_url('Manajer') ?>" <?php if ($this->uri->segment(1) == "Manajer") {
+                                                                            echo 'class="nav-link active"';
+                                                                        } else {
+                                                                            echo 'class="nav-link"';
+                                                                        } ?>>
                                 <i class="nav-icon fas fa-tachometer-alt"></i>
                                 <p>
                                     Dashboard
-
                                 </p>
                             </a>
 
                         </li>
-                        <li class="nav-item">
+                        <li <?php if ($this->uri->segment(1) == "Pegawai" || $this->uri->segment(1) == "Pemesanan") {
+                                echo 'class="nav-item menu-open"';
+                            } else {
+                                echo 'class="nav-item"';
+                            } ?>>
                             <a href="" class="nav-link">
                                 <i class="nav-icon fas fa-th"></i>
                                 <p>
@@ -139,7 +145,11 @@
                             </a>
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
-                                    <a href="<?php echo site_url("Pegawai"); ?>" class="nav-link">
+                                    <a href="<?php echo site_url("Pegawai"); ?>" <?php if ($this->uri->segment(1) == "Pegawai") {
+                                                                                        echo 'class="nav-link active"';
+                                                                                    } else {
+                                                                                        echo 'class="nav-link"';
+                                                                                    } ?>>
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>Data Pegawai</p>
                                     </a>
