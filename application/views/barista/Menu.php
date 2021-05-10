@@ -53,6 +53,8 @@ $this->load->view('parts_barista/navigation');
                                         <th>Nama Menu</th>
                                         <th>Harga</th>
                                         <th>Ketersediaan</th>
+                                        <th>Foto</th>
+                                        <!-- <th>Deskripsi</th> -->
                                         <th>Tools</th>
                                     </tr>
                                 </thead>
@@ -61,12 +63,18 @@ $this->load->view('parts_barista/navigation');
                                     foreach ($dataMenu as $menu) { ?>
                                         <tr>
                                             <td><?= $no++; ?></td>
+                                            <td><?= $menu['id_menu']; ?></td>
+                                            <td><?= $menu['id_kategoriMenu']; ?></td>
                                             <td><?= $menu['namaMenu']; ?></td>
+                                            <td><?= $menu['harga']; ?></td>
+                                            <td><?= $menu['ketersediaan']; ?></td>
+                                            <!-- <td><?= $menu['Deskripsi']; ?></td> -->
+                                            <td><img src="<?php echo base_url('assets/images/menu_kategori/' . $menu['fotoMenu']); ?>" class="img-circle elevation-2" style="width: 50px; height:50px"></td>
                                             <td>
 
-                                                <a href="<?php echo base_url(); ?>Menu/delete/<?= $menu['id_menu']; ?>"><button type="submit" class="btn btn-danger" onclick="return confirm('Apakah anda yakin untuk menghapus data ini? ')"><i class="fa fa-trash"></i></button></a>
+                                                <a href="<?php echo base_url(); ?>Menu_c/delete/<?= $menu['id_menu']; ?>"><button type="submit" class="btn btn-danger" onclick="return confirm('Apakah anda yakin untuk menghapus data ini? ')"><i class="fa fa-trash"></i></button></a>
 
-                                                <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#update<?php echo $kategori['id_menu']; ?>"><i class="fa fa-pencil">
+                                                <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#update<?php echo $menu['id_menu']; ?>"><i class="fa fa-pencil">
                                             </td>
                                         </tr>
                                     <?php
@@ -133,7 +141,7 @@ $this->load->view('parts_barista/navigation');
 
     <!-- Sending data with certain Id to a Modal Form -->
     <?php
-    foreach($dataMenu as $menu){?>
+    foreach ($dataMenu as $menu) { ?>
         <div class="modal fade" id="update<?php echo $menu['id_menu']; ?>" tabindex="-1" aria-labelledby="updateDataMenu" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
@@ -148,15 +156,15 @@ $this->load->view('parts_barista/navigation');
                         <form method="post" action="<?= base_url(); ?>Menu/update/<?= $menu['id_menu']; ?>">
                             <div class="form-group">
                                 <label class="control-label" for="idMenu">ID Menu</label>
-                                <input type="text" name="idMenu" class="form-control" id="idMenu" value="<?php echo $menu['id_menu']?>" required readonly>
+                                <input type="text" name="idMenu" class="form-control" id="idMenu" value="<?php echo $menu['id_menu'] ?>" required readonly>
                             </div>
                             <div class="form-group">
                                 <label class="control-label" for="idMenu">ID Kategori</label>
-                                <input type="text" name="idKategori" class="form-control" id="idKategori" value="<?php echo $menu['id_KategoriMenu']?>" required>
+                                <input type="text" name="idKategori" class="form-control" id="idKategori" value="<?php echo $menu['id_KategoriMenu'] ?>" required>
                             </div>
                             <div class="form-group">
                                 <label class="control-label" for="namaKategori">Nama Menu</label>
-                                <input type="text" name="namaMenu" class="form-control" id="namaMenu" value="<?php echo $menu['namaMenu']?>" required>
+                                <input type="text" name="namaMenu" class="form-control" id="namaMenu" value="<?php echo $menu['namaMenu'] ?>" required>
                             </div>
                             <div class="form-group">
                                 <label class="control-label" for="harga">Harga</label>
@@ -193,11 +201,59 @@ $this->load->view('parts_barista/footer');
 ?>
 <script type="text/javascript">
     $(document).ready(function() {
-        $.post("<?php echo base_url() . "Menu/getId"; ?>",
+        $.post("<?php echo base_url() . "Menu_c/getId"; ?>",
             function(data) {
                 var data1 = new Array();
                 data1 = JSON.parse(data);
                 $('#idMenu').val(data1);
             });
+    });
+
+    // Modal Ubah Data
+    $('#tblMenu').on('click', '.btn-edit', function() {
+
+        // Get Data from Current Row
+        var currentRow = $(this).closest("tr");
+        var idMenu = currentRow.find("td:eq(1)").text(); // Get data from current Row first column
+        var idKategori = currentRow.find("td:eq(2)").text(); // Get data from current Row second column
+        var namaMenu = currentRow.find("td:eq(3)").text(); // Get data from current Row third column
+        var harga = currentRow.find("td:eq(4)").text(); // Get data from current Row fourth column
+        var ketersediaan = currentRow.find("td:eq(5)").text(); // Get data from current Row fifth column
+        var deskripsi = currentRow.find("td:eq(6)").text(); // Get data from current Row sixth column
+        var fotoMenu = currentRow.find("td:eq(7)").text(); // Get data from current Row seventh column
+        $('#modal-update').modal('show');
+        $('#updateIdMenu').val(idMenu);
+        $('#updateIdKategori').val(idKategoriMenu);
+        $('#updateNamaMenu').val(namaMenu);
+        $('#updateHarga').val(harga);
+        $('#updateKetersediaan').val(ketersediaan);
+        $('#updateDeskripsi').val(deskripsi);
+        $('#updateFotoMenu').val(fotoMenu);
+
+    });
+
+    //Show Modal Konfirmasi Ubah Data
+    $('.btnModalUpdate').click(function() {
+        $('#modal-confirmUpdate').modal('show');
+    });
+    // Update Data
+    $('#btn-update').click(function() {
+        $('#update_form').submit();
+    });
+
+    // Modal Hapus Data 
+    $("#tblMenu").on('click', '.btn-del', function() {
+        // get the current row
+        $('#modal-delete').modal('show');
+        var currentRow = $(this).closest("tr");
+        var idMenu = currentRow.find("td:eq(1)").text(); // get id menu
+
+        var url = "<?php echo base_url() ?>Menu_c/delete/" + idMenu;
+
+        $('#btn-delete').click(function() {
+            $.get(url, function() {
+                location.reload();
+            });
+        })
     });
 </script>

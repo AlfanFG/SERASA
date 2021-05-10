@@ -2,11 +2,13 @@
 
 class Menu_m extends CI_Model
 {
-    public function getAllMenu()  {
+    public function getAllMenu()
+    {
         return $this->db->get('tbl_menu')->result_array();
     }
 
-    public function idMenu(){
+    public function idMenu()
+    {
         $query = $this->db->query(
             "SELECT IFNULL(MAX(SUBSTRING(id_menu,10)),0)+1 AS no_urut FROM tbl_menu"
         );
@@ -18,7 +20,8 @@ class Menu_m extends CI_Model
 
         return $id;
     }
-    public function addMenu(){
+    public function addMenu()
+    {
         $data = [
             "id_menu" => $this->input->post('idMenu'),
             "id_kategoriMenu" => $this->input->post('idKategori'),
@@ -29,5 +32,25 @@ class Menu_m extends CI_Model
             "fotoMenu" => $this->input->post('fotoMenu')
         ];
         $this->db->insert('tbl_menu', $data);
+    }
+
+    public function deleteMenu($id)
+    {
+        $this->db->delete('tbl_menu', array('id_menu' => $id));
+    }
+
+    public function updateMenu($id)
+    {
+        $data = [
+            "id_kategoriMenu" => $this->input->post('id_kategoriMenu'),
+            "namaMenu" => $this->input->post('namaMenu'),
+            "harga" => $this->input->post('harga'),
+            "ketersediaan" => $this->input->post('ketersediaan'),
+            "deskripsi" => $this->input->post('deskripsi'),
+            "fotoMenu" => $this->input->post('fotoMenu')
+
+        ];
+        $this->db->where('id_menu', $id);
+        $this->db->update('tbl_menu', $data);
     }
 }

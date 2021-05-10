@@ -173,7 +173,7 @@
                             </a>
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
-                                    <a href="pages/charts/chartjs.html" class="nav-link">
+                                    <a href="<?php base_url(); ?>Transaksi" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>Laporan Pemesanan</p>
                                     </a>
