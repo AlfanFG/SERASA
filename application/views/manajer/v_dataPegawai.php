@@ -325,7 +325,7 @@ $this->load->view('parts/navigationManajer');
 
                 </div>
                 <div class="modal-footer">
-                    <a href="<?php echo site_url('Pegawai'); ?>" class="btn btn-default">Oke</a>
+                    <a href="<?php echo site_url('Pemesanan'); ?>" class="btn btn-default">Oke</a>
 
                 </div>
             </div>
@@ -413,17 +413,11 @@ $this->load->view('parts/footer');
                                     <?php echo form_error('image'); ?>`);
             }
 
-
-
         })
-
-
 
         $('#old_image').val(image);
 
     });
-
-
 
     function showModal() {
         $('input[type=text]').filter('[required]').each(function() {
@@ -438,6 +432,7 @@ $this->load->view('parts/footer');
         });
 
     }
+
     $(document).ready(function() {
         $('#insert_form').on('submit', function(event) {
             event.preventDefault();

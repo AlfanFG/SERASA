@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
 
-class auth extends CI_Controller
+class Auth extends CI_Controller
 {
 
     /**
@@ -53,8 +53,9 @@ class auth extends CI_Controller
         if ($user) {
             // Password Match
             if (($password == $user['password'])) {
-                $data = [
 
+                $data = [
+                    'idPegawai' => $pegawai['id_pegawai'],
                     'idJabatan' => $pegawai['id_jabatan'],
                     'Nama' => $pegawai['namaPegawai'],
                     'tglLahir' => $pegawai['tgl_lahir'],
@@ -63,15 +64,23 @@ class auth extends CI_Controller
                     'foto' => $pegawai['foto'],
                     'status' => 'login'
                 ];
+
                 $this->session->set_userdata($data);
                 if ($data['idJabatan'] == 1) {
 
-                    redirect('manajer');
+                    redirect('Manajer');
                 } else {
 
-                    redirect('barista');
+                    redirect('Barista');
                 }
+                echo "manajer";
             }
         }
+    }
+
+    public function logout()
+    {
+        session_destroy();
+        redirect('auth');
     }
 }

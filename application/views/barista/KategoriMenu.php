@@ -1,8 +1,10 @@
+<!-- Header -->
 <?php
 $this->load->view('parts_barista/header');
 $this->load->view('parts_barista/navigation');
 ?>
 
+<!-- Content Header -->
 <div class="content-wrapper">
     <div class="content-header">
         <div class="container-fluid">
@@ -20,13 +22,12 @@ $this->load->view('parts_barista/navigation');
         </div>
     </div>
 
-
+    <!-- Content Body -->
     <section class="content">
         <div class="container-fluid">
             <div class="row">
                 <div class="col-12" style="margin-top: 50px;">
-                    <button type="button" class="btn btn-success" data-toggle="modal" data-target="#tambah"><i class="fa fa-plus">
-                        </i>Tambah Data</button>
+                    <a class="btn btn-success" id="btn-tambah">Tambah Data</a>
                     <div class="card">
                         <div class="card-header">
                             <h3 class="card-title">Tabel Kategori Menu</h3>
@@ -44,12 +45,13 @@ $this->load->view('parts_barista/navigation');
                             </div>
                         </div>
                         <div class="card-body table-responsive p-0">
-                            <table class="table table-hover text-nowrap">
+                            <table class="table table-hover text-nowrap" id="tblKategoriMenu">
                                 <thead>
                                     <tr>
                                         <th>No</th>
+                                        <th>ID Kategori Menu</th>
                                         <th>Nama Kategori</th>
-                                        <th>Aksi</th>
+                                        <th>Tools</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -57,12 +59,14 @@ $this->load->view('parts_barista/navigation');
                                     foreach ($kategoriMenu as $kategori) { ?>
                                         <tr>
                                             <td><?= $no++; ?></td>
+                                            <td><?= $kategori['id_kategoriMenu']; ?></td>
                                             <td><?= $kategori['namaKategori']; ?></td>
                                             <td>
 
-                                                <a href="<?php echo base_url(); ?>KategoriMenu/delete/<?= $kategori['id_kategoriMenu']; ?>"><button type="submit" class="btn btn-danger" onclick="return confirm('Apakah anda yakin untuk menghapus data ini? ')"><i class="fa fa-trash"></i></button></a>
+                                                <button class="btn btn-warning btn-edit"><i class="fa fa-pencil"></i></button>
 
-                                                <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#update<?php echo $kategori['id_kategoriMenu']; ?>"><i class="fa fa-pencil">
+                                                <button class="btn btn-danger btn-del"><i class="fa fa-trash"></i></button>
+
                                             </td>
                                         </tr>
                                     <?php
@@ -75,81 +79,156 @@ $this->load->view('parts_barista/navigation');
             </div>
         </div>
     </section>
-
-    <!-- Modal Add Data -->
-    <div class=" modal fade" id="tambah" tabindex="-1" aria-labelledby="datakategorimenu" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h4 class="modal-title" id="datakategorimenu">Form Tambah Data Kategori Menu</h4>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-
-                <div class="modal-body">
-                    <form method="post" action="<?= base_url(); ?>KategoriMenu/tambah">
-                        <div class="form-group">
-                            <label class="control-label" for="idKategori">ID Kategori</label>
-                            <input type="text" name="idKategori" class="form-control" id="idKategori" required readonly>
-                        </div>
-
-                        <div class="form-group">
-                            <label class="control-label" for="namaKategori">Nama Kategori</label>
-                            <input type="text" name="namaKategori" class="form-control" id="namaKategori" required>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="reset" class="btn btn-danger" data-dismiss="modal">Cancel</button>
-                            <input type="submit" class="btn btn-success" name="tambah" value="Simpan" onclick="return confirm('Apakah anda yakin untuk menambahkan data ini? ')">
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Sending data with certain Id to a Modal Form -->
-    <?php
-    foreach ($kategoriMenu as $kategori) { ?>
-        <div class="modal fade" id="update<?php echo $kategori['id_kategoriMenu']; ?>" tabindex="-1" aria-labelledby="updateDataKategoriMenu" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h4 class="modal-title" id="datakategorimenu">Form Update Data Kategori Menu</h4>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-
-                    <div class="modal-body">
-                        <form method="post" action="<?= base_url(); ?>KategoriMenu/update/<?= $kategori['id_kategoriMenu']; ?>">
-                            <div class="form-group">
-                                <label class="control-label" for="idKategori">ID Kategori</label>
-                                <input type="text" name="idKategori" class="form-control" id="idKategori" value="<?php echo $kategori['id_kategoriMenu'] ?>" required readonly>
-                            </div>
-
-                            <div class="form-group">
-                                <label class="control-label" for="namaKategori">Nama Kategori</label>
-                                <input type="text" name="namaKategori" class="form-control" id="namaKategori" value="<?php echo $kategori['namaKategori'] ?>" required>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="reset" class="btn btn-danger" data-dismiss="modal">Cancel</button>
-                                <input type="submit" class="btn btn-success" name="tambah" value="Update" onclick="return confirm('Apakah anda yakin untuk mengubah data ini? ')">
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-    <?php }
-    ?>
-    <!-- Modal Update Data -->
-
 </div>
+
+<!-- Footer -->
 <?php
 $this->load->view('parts_barista/footer');
 ?>
+
+<!-- Modal -->
+<!-- Modal Add Data -->
+<div class=" modal fade" id="modal-insert" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h4 class="modal-title" id="datakategorimenu">Form Tambah Data Kategori Menu</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            </div>
+
+            <div class="modal-body">
+                <form method="POST" id="insert_form" action="<?= base_url(); ?>KategoriMenu/tambah" enctype='multipart/form-data'>
+                    <div class="form-group">
+                        <label class="control-label" for="idKategori">ID Kategori</label>
+                        <input type="text" name="idKategori" class="form-control" id="idKategori" required readonly>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label" for="namaKategori">Nama Kategori</label>
+                        <input type="text" name="namaKategori" class="form-control" id="namaKategori" required>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="reset" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                        <input type="button" class="btn btn-success btnModalInsert" name="tambah" value="Simpan">
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Konfirmasi Tambah Data -->
+<div class="modal fade" id="modal-konfirTambah" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Warning</h5>
+
+            </div>
+            <div class="modal-body">
+                <h4>Apakah anda Yakin?</h4>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                <button type="submit" class="btn btn-danger" id="btn-simpan">Simpan</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Update Data -->
+<div class="modal fade" id="modal-update" tabindex="-1" aria-labelledby="updateDataKategoriMenu" aria-hidden="true">
+    <div class="modal-dialog">
+
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="datakategorimenu">Form Update Data Kategori Menu</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            </div>
+
+            <div class="modal-body">
+                <form method="post" id="update_form" action="<?= base_url(); ?>KategoriMenu/update/<?= $kategori['id_kategoriMenu']; ?>">
+                    <div class="form-group">
+                        <label class="control-label" for="idKategori">ID Kategori</label>
+                        <input type="text" name="idKategori" class="form-control" id="updateIdKategori" value="<?php echo $kategori['id_kategoriMenu'] ?>" required readonly>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label" for="namaKategori">Nama Kategori</label>
+                        <input type="text" name="namaKategori" class="form-control" id="updateNamaKategori" value="<?php echo $kategori['namaKategori'] ?>" required>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="reset" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+                        <input type="button" class="btn btn-success btnModalUpdate" name="tambah" value="Update">
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Konfirmasi Update Data -->
+<div class="modal fade" id="modal-confirmUpdate" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Warning</h5>
+
+            </div>
+            <div class="modal-body">
+                <h4>Apakah anda Yakin?</h4>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                <button type="submit" class="btn btn-danger" id="btn-update">Ubah</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Hapus Data -->
+<div class="modal fade" id="modal-delete" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Warning</h5>
+
+            </div>
+            <div class="modal-body">
+                <h4>Apakah anda Yakin?</h4>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                <a class="btn btn-danger" id="btn-delete">Delete</a>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Script -->
 <script type="text/javascript">
+    // Show Modal Tambah Data
+    $('#btn-tambah').click(function() {
+        $('#modal-insert').modal('show');
+    });
+
+    // Show Modal Konfirmasi Tambah Data
+    $('.btnModalInsert').click(function() {
+        $('#modal-konfirTambah').modal('show');
+    });
+
+    // Save Data
+    $('#btn-simpan').click(function() {
+        $('#insert_form').submit();
+    });
+
+
+    //Set ID Kategori Menu
     $(document).ready(function() {
         $.post("<?php echo base_url() . "KategoriMenu/getId"; ?>",
             function(data) {
@@ -157,5 +236,43 @@ $this->load->view('parts_barista/footer');
                 data1 = JSON.parse(data);
                 $('#idKategori').val(data1);
             });
+    });
+
+    // Modal Ubah Data
+    $('#tblKategoriMenu').on('click', '.btn-edit', function() {
+
+        // Get Data from Current Row
+        var currentRow = $(this).closest("tr");
+        var idKategoriMenu = currentRow.find("td:eq(1)").text(); // Get data from current Row first column
+        var namaKategori = currentRow.find("td:eq(2)").text(); // Get data from current Row second column
+        $('#modal-update').modal('show');
+        $('#updateIdKategori').val(idKategoriMenu);
+        $('#updateNamaKategori').val(namaKategori);
+
+    });
+
+    //Show Modal Konfirmasi Ubah Data
+    $('.btnModalUpdate').click(function() {
+        $('#modal-confirmUpdate').modal('show');
+    });
+    // Update Data
+    $('#btn-update').click(function() {
+        $('#update_form').submit();
+    });
+
+    // Modal Hapus Data 
+    $("#tblKategoriMenu").on('click', '.btn-del', function() {
+        // get the current row
+        $('#modal-delete').modal('show');
+        var currentRow = $(this).closest("tr");
+        var idKategoriMenu = currentRow.find("td:eq(1)").text(); // get id pegawai
+
+        var url = "<?php echo base_url() ?>KategoriMenu/delete/" + idKategoriMenu;
+
+        $('#btn-delete').click(function() {
+            $.get(url, function() {
+                location.reload();
+            });
+        })
     });
 </script>

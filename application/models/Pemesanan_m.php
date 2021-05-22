@@ -81,4 +81,9 @@ class Pemesanan_m extends CI_Model
         $query = $this->db->query("SELECT * FROM tbl_pegawai WHERE id_pegawai = '" . $id . "'");
         return $query->row_array();
     }
+
+    function insertDataPemesanan($batch)
+    {
+        $this->db->insert('tbl_transaksi', $batch);
+    }
 }
