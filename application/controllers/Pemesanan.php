@@ -9,7 +9,7 @@ class Pemesanan extends CI_Controller
         parent::__construct();
 
         if ($this->session->userdata('status') != "login") {
-            redirect(base_url("login"));
+            redirect(base_url("auth"));
         }
         $this->load->library('form_validation');
         $this->load->model('Pemesanan_m');

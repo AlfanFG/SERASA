@@ -6,8 +6,11 @@ class Transaksi extends CI_Controller
     public function __construct()
     {
         parent::__construct();
-        if ($this->session->userdata('status') != "login") {
-            redirect(base_url("login"));
+        if ($this->session->userdata('idJabatan') == 2) {
+            echo 'Anda tidak bisa mengakses halaman ini';
+            die();
+        } else if ($this->session->userdata('status') != "login") {
+            redirect(base_url("auth"));
         } else {
             $this->load->model('M_Transaksi');
             $this->load->library('form_validation');

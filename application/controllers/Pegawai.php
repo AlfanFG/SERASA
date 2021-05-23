@@ -7,14 +7,17 @@ class Pegawai extends CI_Controller
     function __construct()
     {
         parent::__construct();
-
-        if ($this->session->userdata('status') != "login") {
-            redirect(base_url("login"));
+        if ($this->session->userdata('idJabatan') == 2) {
+            echo 'Anda tidak bisa mengakses halaman ini';
+            die();
+        } else  if ($this->session->userdata('status') != "login") {
+            redirect(base_url("auth"));
+        } else {
+            $this->load->library('form_validation');
+            $this->load->model('M_Pegawai');
+            $this->load->helper('file');
+            $this->load->database();
         }
-        $this->load->library('form_validation');
-        $this->load->model('M_Pegawai');
-        $this->load->helper('file');
-        $this->load->database();
     }
     //data pegawai  
     public function index()

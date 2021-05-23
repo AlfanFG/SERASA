@@ -31,10 +31,10 @@ class auth extends CI_Controller
         $this->form_validation->set_rules('password', 'Password', 'trim|required');
         if ($this->form_validation->run() == false) {
 
-            $data = [
+            $dataPage = [
                 'title' => 'Login | Form'
             ];
-            $this->load->view('auth/login', $data);
+            $this->load->view('auth/login',  $dataPage);
         } else {
 
             $this->_login();
@@ -71,7 +71,17 @@ class auth extends CI_Controller
 
                     redirect('barista');
                 }
+            } else {
+                $dataPage = [
+                    'title' => 'Login | Form'
+                ];
+                $this->load->view('auth/login',  $dataPage);
             }
         }
+    }
+    public function logout()
+    {
+        $this->session->sess_destroy();
+        redirect(base_url("auth"));
     }
 }
