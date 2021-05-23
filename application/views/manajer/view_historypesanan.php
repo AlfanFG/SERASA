@@ -56,7 +56,7 @@ $this->load->view('parts/navigationManajer');
                                         <th>Tgl Pesan</th>
                                         <th>Jml Pesan</th>
                                         <th>Total Harga</th>
-                                        <th>Aksi</th>
+
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -70,12 +70,7 @@ $this->load->view('parts/navigationManajer');
                                             <td><?php echo $data['tgl_pesan'] ?></td>
                                             <td><?php echo $data['jml_pesan'] ?></td>
                                             <td><?php echo $data['totalHarga'] ?></td>
-                                            <td>
 
-                                                <a href="<?php echo base_url(); ?>Menu/delete/<?= $data['id_transaksi']; ?>"><button type="submit" class="btn btn-danger" onclick="return confirm('Apakah anda yakin untuk menghapus data ini? ')"><i class="fa fa-trash"></i></button></a>
-
-                                                <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#update<?php echo $data['id_transaksi']; ?>"><i class="fa fa-pencil">
-                                            </td>
                                         </tr>
                                     <?php } ?>
                                 </tbody>
