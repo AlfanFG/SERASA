@@ -8,8 +8,11 @@ class Manajer extends CI_Controller
     {
         parent::__construct();
 
-        if ($this->session->userdata('status') != "login") {
-            redirect(base_url("login"));
+        if ($this->session->userdata('idJabatan') == 2) {
+            echo 'Anda tidak bisa mengakses halaman ini';
+            die();
+        } else if ($this->session->userdata('status') != "login") {
+            redirect(base_url("auth"));
         }
     }
 

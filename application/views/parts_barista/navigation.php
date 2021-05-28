@@ -166,10 +166,18 @@
                                 <i class="nav-icon fas fa-cash-register"></i>
                                 <p>
                                     Pemesanan
+                                    <i class="right fas fa-angle-left"></i>
 
                                 </p>
                             </a>
-
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item">
+                                    <a class="nav-link" href="<?= base_url(); ?>Order">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Data Pemesanan</p>
+                                    </a>
+                                </li>
+                            </ul>
                         </li>
 
 

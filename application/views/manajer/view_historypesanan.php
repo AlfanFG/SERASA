@@ -86,7 +86,7 @@ $this->load->view('parts/navigationManajer');
 
 <!-- Footer -->
 <?php
-$this->load->view('parts/navigationManajer');
+$this->load->view('parts/footer');
 ?>
 
 

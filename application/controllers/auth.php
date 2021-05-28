@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
 
-class Auth extends CI_Controller
+class auth extends CI_Controller
 {
 
     /**
@@ -31,10 +31,10 @@ class Auth extends CI_Controller
         $this->form_validation->set_rules('password', 'Password', 'trim|required');
         if ($this->form_validation->run() == false) {
 
-            $data = [
+            $dataPage = [
                 'title' => 'Login | Form'
             ];
-            $this->load->view('auth/login', $data);
+            $this->load->view('auth/login',  $dataPage);
         } else {
 
             $this->_login();
@@ -53,9 +53,8 @@ class Auth extends CI_Controller
         if ($user) {
             // Password Match
             if (($password == $user['password'])) {
-
                 $data = [
-                    'idPegawai' => $pegawai['id_pegawai'],
+
                     'idJabatan' => $pegawai['id_jabatan'],
                     'Nama' => $pegawai['namaPegawai'],
                     'tglLahir' => $pegawai['tgl_lahir'],
@@ -64,23 +63,25 @@ class Auth extends CI_Controller
                     'foto' => $pegawai['foto'],
                     'status' => 'login'
                 ];
-
                 $this->session->set_userdata($data);
                 if ($data['idJabatan'] == 1) {
 
-                    redirect('Manajer');
+                    redirect('manajer');
                 } else {
 
-                    redirect('Barista');
+                    redirect('barista');
                 }
-                echo "manajer";
+            } else {
+                $dataPage = [
+                    'title' => 'Login | Form'
+                ];
+                $this->load->view('auth/login',  $dataPage);
             }
         }
     }
-
     public function logout()
     {
-        session_destroy();
-        redirect('auth');
+        $this->session->sess_destroy();
+        redirect(base_url("auth"));
     }
 }
