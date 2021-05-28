@@ -50,52 +50,59 @@ class Pegawai extends CI_Controller
             return $name;
         }
     }
-    public function dob_check($str)
-    {
-        $newDate = date("Y-m-d", strtotime($str));
-        if (!DateTime::createFromFormat('Y-m-d', $newDate)) { //yes it's YYYY-MM-DD
-            $this->form_validation->set_message('dob_check', 'The {field} has not a valid date format');
-            return FALSE;
-        } else {
-            return TRUE;
-        }
-    }
+
     public function addPegawai()
     {
 
-        // $this->form_validation->set_rules('idPegawai', 'ID Pegawai', 'required');
-        // $this->form_validation->set_rules('idJabatan', 'ID Jabatan', 'required');
-        // $this->form_validation->set_rules('namaPegawai', 'Nama Pegawai', 'required|max_length[50]');
-        // $this->form_validation->set_rules('tglLahir', 'Tanggal Lahir', 'required');
-        // $this->form_validation->set_rules('alamat', 'Alamat', 'required|max_length[50]');
-        // $this->form_validation->set_rules('noTelp', 'Tujuan Peminjaman', 'numeric|xss_clean');
-        // if (empty($_FILES['image']['name'])) {
-        //     $this->form_validation->set_rules('image', 'Foto', 'required');
-        // }
+        $this->form_validation->set_rules('idPegawai', 'ID Pegawai', 'required');
+        $this->form_validation->set_rules('idJabatan', 'ID Jabatan', 'required');
+        $this->form_validation->set_rules('namaPegawai', 'Nama Pegawai', 'required');
+        $this->form_validation->set_rules('tglLahir', 'Tanggal Lahir', 'required');
+        $this->form_validation->set_rules('alamat', 'Alamat', 'required');
+        $this->form_validation->set_rules('noTelp', 'Nomor Telepon', 'numeric|required');
+        if (empty($_FILES['image']['name'])) {
+            $this->form_validation->set_rules('image', 'Foto', 'required');
+        }
 
 
-        // if ($this->form_validation->run()) {
+        if ($this->form_validation->run()) {
 
-        $data = array(
-            'id_pegawai' => $this->input->post('idPegawai'),
-            'id_jabatan' => $this->input->post('idJabatan'),
-            'namaPegawai' => $this->input->post('namaPegawai'),
-            'tgl_lahir' => $this->input->post('tglLahir'),
-            'alamat' => $this->input->post('alamat'),
-            'no_telp' => $this->input->post('noTelp'),
-            'foto' => $this->uploadImage()
+            $data = array(
+                'id_pegawai' => $this->input->post('idPegawai'),
+                'id_jabatan' => $this->input->post('idJabatan'),
+                'namaPegawai' => $this->input->post('namaPegawai'),
+                'tgl_lahir' => $this->input->post('tglLahir'),
+                'alamat' => $this->input->post('alamat'),
+                'no_telp' => $this->input->post('noTelp'),
+                'foto' => $this->uploadImage()
 
-        );
-        $this->M_Pegawai->insertPegawai($data);
+            );
+            $this->M_Pegawai->insertPegawai($data);
 
-        redirect('Pegawai');
-        // } else {
-        //     $data['dataPegawai'] = $this->M_Pegawai->getDataPegawai();
-        //     $this->load->view('manajer/v_dataPegawai', $data);
-        // }
+            // redirect('Pegawai');
+        } else {
+            $json = array();
+            $json = array(
+
+                'idPegawai' => form_error('idPegawai', '<p class="mt-3 text-danger">', '</p>'),
+                'idJabatan' => form_error('idJabatan', '<p class="mt-3 text-danger">', '</p>'),
+                'namaPegawai' => form_error('namaPegawai', '<p class="mt-3 text-danger">', '</p>'),
+                'tglLahir' => form_error('tglLahir', '<p class="mt-3 text-danger">', '</p>'),
+                // 'jmlPermohonan' => form_error('jmlPermohonan', '<p class="mt-3 text-danger">', '</p>'),
+                'alamat' => form_error('alamat', '<p class="mt-3 text-danger">', '</p>'),
+                'noTelp' => form_error('noTelp', '<p class="mt-3 text-danger">', '</p>'),
+                'foto' => form_error('foto', '<p class="mt-3 text-danger">', '</p>'),
+                // 'jangkaWaktu' => form_error('jangkaWaktu', '<p class="mt-3 text-danger">', '</p>'),
+                // 'mengetahui' => form_error('mengetahui', '<p class="mt-3 text-danger">', '</p>'),
+                'status' => 'invalid'
+
+            );
 
 
-        // $insert = $this->M_Pegawai->insertGambar($name);
+            $this->output
+                ->set_content_type('application/json')
+                ->set_output(json_encode($json));
+        }
     }
 
     public function editPegawai()
@@ -116,12 +123,18 @@ class Pegawai extends CI_Controller
         );
 
         $this->M_Pegawai->updatePegawai($data, $id);
-        echo $name;
+
         redirect('Pegawai');
 
         // $insert = $this->M_Pegawai->insertGambar($name);
     }
-
+    public function edit($id)
+    {
+        $this->db->where('id_pegawai', $id);
+        $query = $this->db->get('tbl_pegawai');
+        $data = $query->row();
+        echo json_encode($data);
+    }
 
     public function deletePegawai($id)
     {

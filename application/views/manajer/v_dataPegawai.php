@@ -163,9 +163,9 @@ $this->load->view('parts/navigationManajer');
                 </div>
 
                 <div class="modal-body">
-                    <?php echo validation_errors(); ?>
-                    <form method="POST" id="insert_form" enctype='multipart/form-data'>
 
+                    <form method="POST" id="insert_form" enctype='multipart/form-data'>
+                        <?php echo validation_errors(); ?>
                         <div class="row">
                             <div class="form-group">
 
@@ -188,8 +188,8 @@ $this->load->view('parts/navigationManajer');
                                 <div class="form-group">
                                     <label for="field-2" class="control-label">ID Pegawai</label>
 
-                                    <input type="text" class="form-control" id="idPegawai" name="idPegawai" value="" readonly required>
-                                    <?php echo form_error('idPegawai'); ?>
+                                    <input type="text" class="form-control" id="idPegawai" name="idPegawai" value="" readonly>
+                                    <div class="error"></div>
                                 </div>
 
                             </div>
@@ -198,8 +198,8 @@ $this->load->view('parts/navigationManajer');
 
                                 <div class="form-group">
                                     <label for="field-2" class="control-label">ID Jabatan</label><br>
-                                    <input type="text" class="form-control" id="idJabatan" name="idJabatan" value="" readonly required>
-                                    <?php echo form_error('idJabatan'); ?>
+                                    <input type="text" class="form-control" id="idJabatan" name="idJabatan" value="" readonly>
+                                    <div class="error"></div>
                                 </div>
 
                             </div>
@@ -210,8 +210,8 @@ $this->load->view('parts/navigationManajer');
                                 <div class="form-group">
                                     <label for="field-3" class="control-label">Nama Pegawai</label>
 
-                                    <input type="text" class="form-control" id="namaPegawai" value="" name="namaPegawai" placeholder="Nama Pegawai" required>
-                                    <?php echo form_error('namaPegawai'); ?>
+                                    <input type="text" class="form-control" id="namaPegawai" value="" name="namaPegawai" placeholder="Nama Pegawai">
+                                    <div class="error"></div>
                                 </div>
 
                             </div>
@@ -223,8 +223,8 @@ $this->load->view('parts/navigationManajer');
                                 <div class="form-group">
                                     <label for="field-4" class="control-label">Tanggal Lahir</label>
 
-                                    <input type="date" class="form-control" id="tglLahir" value="" name="tglLahir" placeholder="" required>
-                                    <?php echo form_error('tglLahir'); ?>
+                                    <input type="date" class="form-control" id="tglLahir" value="" name="tglLahir" placeholder="">
+                                    <div class="error"></div>
                                 </div>
 
                             </div>
@@ -234,8 +234,8 @@ $this->load->view('parts/navigationManajer');
                                 <div class="form-group">
                                     <label for="field-4" class="control-label">Alamat</label>
 
-                                    <input type="text" class="form-control" id="alamat" value="" name="alamat" placeholder="Alamat" required>
-                                    <?php echo form_error('alamat'); ?>
+                                    <input type="text" class="form-control" id="alamat" value="" name="alamat" placeholder="Alamat">
+                                    <div class="error"></div>
                                 </div>
 
                             </div>
@@ -244,9 +244,8 @@ $this->load->view('parts/navigationManajer');
 
                                 <div class="form-group">
                                     <label for="field-4" class="control-label">No Telp</label>
-
-                                    <input type="text" class="form-control" id="noTelp" name="noTelp" placeholder="Nomor Telepon" required>
-                                    <?php echo form_error('noTelp'); ?>
+                                    <input type="text" class="form-control" id="noTelp" name="noTelp" placeholder="Nomor Telepon">
+                                    <div class="error"></div>
                                 </div>
 
                             </div>
@@ -325,7 +324,26 @@ $this->load->view('parts/navigationManajer');
 
                 </div>
                 <div class="modal-footer">
-                    <a href="<?php echo site_url('Pemesanan'); ?>" class="btn btn-default">Oke</a>
+                    <a href="<?php echo site_url('Pegawai'); ?>" class="btn btn-default">Oke</a>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="modal-failed" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Information</h5>
+
+                </div>
+                <div class="modal-body">
+                    <h4>Data Gagal Disimapn</h4>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Oke</button>
 
                 </div>
             </div>
@@ -346,9 +364,9 @@ $this->load->view('parts/footer');
 <script type="text/javascript">
     var status;
     $('#btn-tambah').click(function() {
-        $('#img').append(`<input type="file" class="form-control" id="image" name="image" value="" placeholder="Add image">
+        $('#img').html(`<input type="file" class="form-control" id="image" name="image" value="" placeholder="Add image">
                                     <?php echo form_error('image'); ?>`);
-        $('#insert_form')[0].reset();
+        // $('#insert_form')[0].reset();
         $('#btn-save').val('Save');
         $('#modal-insert').modal('show');
     });
@@ -370,8 +388,6 @@ $this->load->view('parts/footer');
                     $('#idJabatan').val(2);
                     $('#idPegawai').val(data1[1]);
                 }
-
-
             });
         });
     });
@@ -420,16 +436,12 @@ $this->load->view('parts/footer');
     });
 
     function showModal() {
-        $('input[type=text]').filter('[required]').each(function() {
-            if ($(this).val() === '') {
+
+        $('#modal-insert').modal('hide');
+        $('#modal-confirm').modal('show');
 
 
-            } else {
-                $('#modal-insert').modal('hide');
-                $('#modal-confirm').modal('show');
-            }
 
-        });
 
     }
 
@@ -457,7 +469,6 @@ $this->load->view('parts/footer');
                 URL = "<?php echo site_url('Pegawai/editPegawai'); ?>";
             }
 
-
             $.ajax({
                 ///nambah url
                 url: URL,
@@ -466,9 +477,21 @@ $this->load->view('parts/footer');
                 processData: false,
                 data: fd,
                 success: function(data) {
-                    console.log(data.namaPegawai);
-                    $('#modal-confirm').modal('hide');
-                    $('#modal-info').modal('show');
+                    var status = false;
+                    if (data.status == 'invalid') {
+                        $('#confirmModal').modal('hide');
+                        alert('wef');
+                        $.each(data, function(key, value) {
+                            if ($('#modal-confirm').is(':visible')) {
+                                $('#' + key).parents('.form-group').find('.error').html(value);
+                            }
+                        });
+                        $('#modal-confirm').modal('hide');
+                        $('#modal-failed').modal('show');
+                    } else {
+                        $('#modal-confirm').modal('hide');
+                        $('#modal-info').modal('show');
+                    }
                 }
             });
 

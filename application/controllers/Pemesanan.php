@@ -11,11 +11,11 @@ class Pemesanan extends CI_Controller
         if ($this->session->userdata('status') != "login") {
             redirect(base_url("login"));
         }
-        if (!isset($_SERVER['HTTP_REFERER'])) {
+        // if (!isset($_SERVER['HTTP_REFERER'])) {
 
-            $this->load->helper('url');
-            redirect('/page404');
-        }
+        //     $this->load->helper('url');
+        //     redirect('/page404');
+        // }
         $this->load->library('form_validation');
         $this->load->model('Pemesanan_m');
         $this->load->helper('file');
@@ -34,20 +34,34 @@ class Pemesanan extends CI_Controller
         echo json_encode($data);
     }
 
-    public function insertPemesanan($namaCust)
+    public function insertPemesanan()
     {
         $arr = $this->input->post('arr');
-        $tgl = date('YMd');
+        $total = $this->input->post('tot');
+        $idPesanan = $this->input->post('id');
+        $bayar = $this->input->post('bayar');
+        $nama = $this->input->post('nama');
+
+
+        date_default_timezone_set('Asia/Jakarta');
+        $tgl = date('Y-m-d H:i');
+        $data = array(
+            'id_pesanan' => $idPesanan,
+            'id_pegawai' => $this->session->userdata('idPegawai'),
+            'tgl_pesan' => $tgl,
+            'nama_Customer' => $nama,
+            'bayar' => $bayar,
+            'total' => $total
+
+        );
+        $this->db->insert('tbl_pesanan', $data);
 
         foreach ($arr as $row) {
             $data = array(
-                'id_pesanan' => '001',
+                'id_pesanan' => $idPesanan,
                 'id_menu' => $row[4],
-                'id_pegawai' => $this->session->userdata('idPegawai'),
-                'namaCustomer' => $namaCust,
-                'tgl_pesan' => $tgl,
-                'jml_pesan' => $row[2],
-                'totalHarga' => $row[1]
+                'Qty' => $row[2],
+                'subTotal' => $row[3]
             );
             $this->Pemesanan_m->insertDataPemesanan($data);
         }
@@ -57,6 +71,6 @@ class Pemesanan extends CI_Controller
         //         echo $data[$i][$j];
         //     }
         // }
-
+        redirect('Pegawai');
     }
 }

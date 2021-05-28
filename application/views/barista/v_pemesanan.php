@@ -8,10 +8,10 @@ $this->load->view('parts_barista/navigation');
 
         width: 350px;
         position: -webkit-sticky;
-        position: sticky;
+        /* position: sticky; */
         z-index: 1;
         top: 188px !important;
-        height: 500px !important;
+        height: 700px !important;
         background: #fff;
         overflow-x: hidden;
         padding: 8px 0;
@@ -123,8 +123,8 @@ $this->load->view('parts_barista/navigation');
                                             <?php } ?>
 
 
-                                            <div class="col" style="margin-left: 0px;">
-                                                <button class="<?php echo "card link link-" . $i ?>" style="width: 11rem; margin-right:50px; height:400px">
+                                            <div class="col link-item" style="margin-left: 0px;">
+                                                <button class="<?php echo 'card link link-' . $i ?>" id="<?php echo 'link-' . $i ?>" style="width: 11rem; margin-right:50px; height:400px">
 
 
 
@@ -161,9 +161,20 @@ $this->load->view('parts_barista/navigation');
 
                             </div>
                             <div class="row">
-                                <div class="col-md-12 bayar">
+                                <div class="col-md-12" style="margin-left: 0px; position:relative; float:right;">
+                                    <div class="hitung"></div>
+
+
                                     <hr>
+
+                                    <div class="tot" style="float: right; margin-right:20px"></div>
                                 </div>
+
+                                <div class="col">
+                                    <hr>
+                                    <div class="bayar"></div>
+                                </div>
+
                             </div>
                         </div>
                     </div>
@@ -232,18 +243,33 @@ $this->load->view('parts_barista/footer');
                 <h4 class="modal-title" id="datakategorimenu">Form Tambah Data Kategori Menu</h4>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
             </div>
-
+            <?php $id = $this->Pemesanan_m->getIdPesanan(); ?>
             <div class="modal-body">
-                <div class="form-group">
-                    <label class="control-label" for="idMenu">Nama Customer</label>
-                    <input type="text" name="f-namaCustomer" class="form-control" id="f-namaCustomer" required>
-                </div>
+                <form action="" id="f-pesanan" method="POST">
+                    <div class="form-group">
+                        <label class="control-label">ID Pesanan</label>
+                        <input type="text" name="f-idPesanan" class="form-control" value="<?php echo $id; ?>" id="f-idPesanan" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label">Nama Customer</label>
+                        <input type="text" name="f-namaCustomer" class="form-control" id="f-namaCustomer" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label">Total</label>
+                        <input type="text" name="f-total" class="form-control" id="f-total" readonly required>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label">Bayar</label>
+                        <input type="text" name="f-bayar" class="form-control" id="f-bayar" required>
+                    </div>
 
 
-                <div class="modal-footer">
-                    <button type="reset" class="btn btn-default" data-dismiss="modal">Cancel</button>
-                    <button type="button" class="btn btn-success" id="btn-addNama" name="tambah">Add</button>
-                </div>
+                    <div class="modal-footer">
+                        <button type="reset" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                        <button type="button" class="btn btn-success" id="btn-addNama" name="tambah">Add</button>
+                    </div>
 
             </div>
         </div>
@@ -264,11 +290,12 @@ $this->load->view('parts_barista/footer');
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-                <button type="button" class="btn btn-danger" id="btn-simpan">Simpan</button>
+                <input type="submit" class="btn btn-danger" id="btn-simpan" value="Simpan">
             </div>
         </div>
     </div>
 </div>
+</form>
 <div class="modal fade" id="modal-info" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -281,7 +308,11 @@ $this->load->view('parts_barista/footer');
 
             </div>
             <div class="modal-footer">
+                <!-- direct ke table pesanan -->
+                <a href="#" style="float:left; margin-right: 250px" id="btn-cetak" class="btn btn-info"><i class="fas fa-print"> Cetak</i></a>
                 <a href="<?php echo site_url('Pemesanan'); ?>" class="btn btn-default">Oke</a>
+                <!-- direct ke fungsi cetak -->
+
 
             </div>
         </div>
@@ -360,6 +391,7 @@ $this->load->view('parts_barista/footer');
 </div>
 <!-- Script -->
 <script type="text/javascript">
+    var total = 0;
     $('.nav-menu').on('click', function() {
         $('.nav-menu').removeClass('active');
         $(this).addClass('active');
@@ -381,8 +413,8 @@ $this->load->view('parts_barista/footer');
             $.each(obj, function(i, data) {
 
 
-                $(` <div class="col">
-                                        <button class="card link link-` + i + `" style="width: 11rem; margin-right:40px; height:400px">
+                $(` <div class="col link-item">
+                                        <button class="card link link-` + i + `" id="link-` + i + `" style="width: 11rem; margin-right:40px; height:400px">
                                         <img src="<?php echo base_url(); ?>assets/images/menu_kategori/` + obj[i].fotoMenu + `" class="card-img-top" style="height: 200px;" alt="...">
                 <div class="card-body">
                 <p class="idMenu" hidden>` + obj[i].id_menu + `</p>
@@ -396,13 +428,8 @@ $this->load->view('parts_barista/footer');
                                         </button>
                                    </div> `).appendTo('.isi');
 
-
-
             });
             $('.data').append('</div>');
-
-
-
 
         })
     });
@@ -430,6 +457,8 @@ $this->load->view('parts_barista/footer');
     var status = "unremove";
     var idItem;
 
+    var k = 0;
+
     $('#btn-add').click(function() {
 
         var nama = $('#f-namaMenu').val();
@@ -438,16 +467,19 @@ $this->load->view('parts_barista/footer');
         var idMenu = $('#f-idMenu').val();
         var index = $('#f-noUrut').val();
         var newQty = 0;
-
+        // total = 0;
+        var oldSubtot = 0;
         var subTot = harga.substring(4, 9) * oldQty;
         var sameQty = false;
         var initialData = false;
+        var oldIndex = 0;
 
         if (pesanan.length == 0) {
             pesanan.push([nama, harga.substring(4, 9), oldQty, subTot, idMenu]);
             idItem = 0;
             status = "unremove";
             initialData = true;
+
         }
 
         if (sameQty == false && pesanan.length != 0 && initialData != true) {
@@ -456,8 +488,12 @@ $this->load->view('parts_barista/footer');
                 if (pesanan[j][0] == nama) {
                     newQty = parseInt(pesanan[j][2]) + parseInt(oldQty);
                     pesanan[j][2] = newQty;
+                    pesanan[j][3] = newQty * parseInt(pesanan[j][1]);
 
                     $('#item-qty' + j).html(" : " + pesanan[j][2]);
+                    $('#item-harga' + j).html(" Rp. " + pesanan[j][3]);
+                    // total = total + (pesanan[j][2] - 1) * pesanan[j][3];
+                    // alert(total);
                     sameQty = true;
                 }
             }
@@ -465,7 +501,7 @@ $this->load->view('parts_barista/footer');
 
         if ((sameQty == false) && (pesanan.length != 0) && (initialData != true)) {
             // variable i nya ga ketambahin
-            alert(status);
+
             if (status != "unremove") {
                 pesanan.splice(index, 0, [nama, harga.substring(4, 9), oldQty, subTot, idMenu]);
                 status = "unremove";
@@ -474,39 +510,126 @@ $this->load->view('parts_barista/footer');
                 pesanan.push([nama, harga.substring(4, 9), oldQty, subTot, idMenu]);
                 i++;
             }
+
+
+
+
         }
         console.log(pesanan);
 
         var urut = $('#f-noUrut').val();
-
         if (sameQty == false) {
             $('.link-' + urut).addClass('visit');
-
             $(`<div class="row item itemNo-` + i + `" style="width:400px">
-           
-            <div class="col-md-6" style="margin-left:0px;><span for="" id="item-nama"> <a class="btn remove" id="remove` + i + `" style="margin-bottom='20px'"><i class="fas fa-minus-circle"></i></a>` + pesanan[i][0] + ` </span></div>
-            <div class="col-sm-2"><span style="margin-right:10px" for="" id="item-qty` + i + `">` + " : " + pesanan[i][2] + `</span></div>
-            <div class="col"><span for="" id="item-harga" style="margin-left:10px;">` + "Rp. " + pesanan[i][3] + `</span></div></div>`).appendTo('.add');
+            <div class="col-md-6"><span for="" id="item-nama"> <a class="btn remove ` + urut + `" id="remove` + i + `" style="margin-bottom='20px'"><i class="fas fa-minus-circle"></i></a>` + pesanan[i][0] + ` </span></div>
+            <div class="col-sm-2" style="top:5px; position:relative"><span style="margin-right:10px" for="" id="item-qty` + i + `">` + " : " + pesanan[i][2] + `</span></div>
+            <div class="col" style="top:5px; position:relative"><span for="" id="item-harga` + i + `" style="margin-left:10px;">` + "Rp. " + pesanan[i][3] + `</span></div></div>`).appendTo('.add');
         }
 
         if ((i == 0) && (sameQty == false) && (initialData == true)) {
-            $('.bayar').append(`<a href="#" id="bayar" class="btn btn-primary" style="float:right">Bayar</a>`);
-            $('.bayar').append(`<a href="#" id="reset" class="btn btn-warning" style="margin-left:200px">Reset</a>`);
+            hitungTotal();
+            // $('.hitung').append(`<button id="hitung" onclick="hitungTotal()" class="btn btn-info" style="left:250px;position:relative">Hitung</button>`);
+            $('.bayar').append(`<a href="#" id="bayar" class="btn btn-primary" style="left:250px; position:relative">Bayar</a>`);
+            $('.bayar').append(`<a href="#" id="reset" class="btn btn-warning" style="left:120px; position:relative">Reset</a>`);
+
+        } else {
+            hitungTotal();
         }
         $('#tambah-pesanan').modal('hide');
+
+
+
+
     });
 
-    $('div:first').on('click', '.remove', function() {
+    function hitungTotal() {
+        total = 0;
+        for (var l = 0; l < pesanan.length; l++) {
+            total = total + pesanan[l][3];
+        }
+        $('.tot').html('Total : Rp. ' + total);
+        // return total;
+    }
+    // $('div').on('click', '.hitung', function() {
+    //     total = 0;
+    //     for (var l = 0; l < pesanan.length; l++) {
+    //         total = total + pesanan[l][3];
+    //     }
+    //     $('.tot').html('Rp. ' + total);
+    // })
+    var count;
+    var sts = "";
+    var stsAwal = "";
+    $('div').on('click', '.remove', function() {
         status = "remove";
         index = $(this).attr('id');
 
-        pesanan.splice(index.substring(6, 7), 1);
+        if (pesanan.length == 1) {
+            pesanan.splice(0, 1);
+            i--;
+
+            stsAwal = "";
+        }
+
+        // if ((parseInt(index.substring(6, 7)) - 1) == -1) {
+        //     pesanan.splice(0, 1);
+        //     i--;
+        //     // sts = 'middle';
+        //     alert('wef');
+
+        // }
+
+
+        var ind = parseInt(index.substring(6, 7));
+
+        if (pesanan[ind + 1] == null) {
+            pesanan.splice(pesanan.length - 1, 1);
+            // i--;
+            // alert(index.substring(6, 7));
+            sts = 'middle';
+
+        }
+
+        if ((pesanan[ind + 1] != null) && (sts == 'middle')) {
+            pesanan.splice(ind, 1);
+            i--;
+            // alert('mid');
+
+            stsAwal = "";
+        }
+
+
+
+        if ((pesanan[ind + 1] != null) && (sts == "")) {
+            pesanan.splice(ind, 1);
+            i--;
+            sts = 'middle';
+            stsAwal = "";
+            // alert('as');
+        }
+
+
         $('.itemNo-' + index.substring(6, 7)).remove();
+        hitungTotal();
+        var totRemove = 0;
+        // for (var l = 0; l < pesanan.length; l++) {
+        //     totRemove = totRemove + pesanan[l][3];
+        // }
+        // total = totRemove;
+        // $('.tot').html('<p style="float:right; margin-right:20px">Total : Rp.' + totRemove + '</p>');
+
         if (pesanan.length == 0) {
             $('#bayar').remove();
             $('#reset').remove();
             i = 0;
         }
+
+        // var link = $('.link').attr('id');
+        // alert(link);
+        // $('.' + link).removeClass('visit');
+
+        var link = $(this).attr('class');
+        $('.link-' + link.substring(11, 12)).removeClass('visit');
 
         console.log(pesanan);
     })
@@ -516,11 +639,15 @@ $this->load->view('parts_barista/footer');
         i = 0;
         $('.link').removeClass('visit');
         $('.add').html("");
-        $('.bayar').html("");
+        $('.tot').html("");
+        $('#bayar').remove();
+        $('#reset').remove();
+
     })
 
     $('div').on('click', '#bayar', function() {
         $('#formNamaCustomer').modal('show');
+        $('#f-total').val(total);
 
     })
     $('#btn-addNama').click(function() {
@@ -528,19 +655,33 @@ $this->load->view('parts_barista/footer');
         $('#modal-konfirTambah').modal('show');
 
     })
-    $('#btn-simpan').click(function() {
-        var namaCust = $('#f-namaCustomer').val();
-        jQuery.ajax({
-            url: '<?php echo base_url() ?>Pemesanan/insertPemesanan/' + namaCust,
-            type: 'post',
-            data: {
-                arr: pesanan
-            },
-            datatype: 'json',
-            success: function() {
-                $('#modal-konfirTambah').modal('hide');
-                $('#modal-info').modal('show');
-            }
-        });
+    $('#f-pesanan').on('submit', function(e) {
+        e.preventDefault();
+        var total = $('#f-total').val();
+        var fd = new FormData(this);
+        var nama = $('#f-namaCustomer').val();
+        var idPesanan = $('#f-idPesanan').val();
+        var byr = $('#f-bayar').val();
+        if (byr < total) {
+            alert('Pembayaran kurang!');
+        } else {
+
+            $.ajax({
+                url: '<?php echo base_url() ?>Pemesanan/insertPemesanan',
+                type: 'post',
+                data: {
+                    arr: pesanan,
+                    nama: nama,
+                    id: idPesanan,
+                    bayar: byr,
+                    tot: total
+                },
+                datatype: 'json',
+                success: function() {
+                    $('#modal-konfirTambah').modal('hide');
+                    $('#modal-info').modal('show');
+                }
+            });
+        }
     })
 </script>

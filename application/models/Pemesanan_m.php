@@ -27,33 +27,17 @@ class Pemesanan_m extends CI_Model
         return $query->result_array();
     }
 
-    public function idManajer()
+    public function getIdPesanan()
     {
         // $tahun_sekarang = date('Y');
 
         $query = $this->db->query(
-            "SELECT IFNULL(MAX(SUBSTRING(id_pegawai,5)),0)+1 AS no_urut FROM tbl_pegawai WHERE id_jabatan = 1"
+            "SELECT IFNULL(MAX(SUBSTRING(id_pesanan,4)),0)+1 AS no_urut FROM tbl_pesanan"
         );
         $data = $query->row_array();
         $no_urut = sprintf("%'.04d", $data['no_urut']);
 
-        $id = 'M' . $no_urut;
-
-
-        return $id;
-    }
-
-    public function idBarista()
-    {
-        // $tahun_sekarang = date('Y');
-
-        $query = $this->db->query(
-            "SELECT IFNULL(MAX(SUBSTRING(id_pegawai,5)),0)+1 AS no_urut FROM tbl_pegawai WHERE id_jabatan = 2"
-        );
-        $data = $query->row_array();
-        $no_urut = sprintf("%'.04d", $data['no_urut']);
-
-        $id = 'B' . $no_urut;
+        $id = 'P' . $no_urut;
 
         return $id;
     }
@@ -84,6 +68,6 @@ class Pemesanan_m extends CI_Model
 
     function insertDataPemesanan($batch)
     {
-        $this->db->insert('tbl_transaksi', $batch);
+        $this->db->insert('tbl_detailpesanan', $batch);
     }
 }
