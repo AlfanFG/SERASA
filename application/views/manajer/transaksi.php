@@ -16,12 +16,12 @@ $this->load->view('parts/navigationManajer');
             <thead align="center">
                 <tr>
                     <th scope="col">No</th>
-                    <th scope="col">ID Transaksi</th>
                     <th scope="col">ID Pesanan</th>
-                    <th scope="col">ID Menu</th>
-                    <th scope="col">ID Pegawai</th>
+                    <th scope="col">Tanggal Pemesanan</th>
                     <th scope="col">Nama Customer</th>
-                    <th scope="col">Aksi</th>
+                    <th scope="col">Bayar</th>
+                    <th scope="col">Total</th>
+                    <!-- <th scope="col">Aksi</th> -->
                 </tr>
             </thead>
             <?php $no = 1;
@@ -29,16 +29,16 @@ $this->load->view('parts/navigationManajer');
                 <tbody align="center">
                     <tr>
                         <td><?= $no++; ?></td>
-                        <td><?= $dt['id_transaksi']; ?> </td>
                         <td><?= $dt['id_pesanan']; ?> </td>
-                        <td><?= $dt['id_menu']; ?> </td>
-                        <td><?= $dt['id_pegawai']; ?> </td>
-                        <td><?= $dt['namaCustomer']; ?></td>
-                        <td>
+                        <td><?= $dt['tgl_pesan']; ?> </td>
+                        <td><?= $dt['nama_Customer']; ?></td>
+                        <td><?= $dt['bayar']; ?></td>
+                        <td><?= $dt['total']; ?></td>
+                        <!-- <td>
                             <button type="button" class="btn btn-primary"><i class="fa fa-eye"></i></button>
                             <button type="button" class="btn btn-warning"><i class="fa fa-pencil"></i></button>
                             <button type="button" class="btn btn-danger"><i class="fa fa-trash"></i></button>
-                        </td>
+                        </td> -->
                     </tr>
                 </tbody>
             <?php
