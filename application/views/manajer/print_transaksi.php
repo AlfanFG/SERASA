@@ -12,14 +12,11 @@
         <thead align="center">
             <tr>
                 <th>No</th>
-                <th>ID Transaksi</th>
                 <th>ID Pesanan</th>
-                <th>ID Menu</th>
-                <th>ID Pegawai</th>
+                <th>Tanggal Pemesanan</th>
                 <th>Nama Customer</th>
-                <th>Tanggal Pesan</th>
-                <th>Jumlah Pesan</th>
-                <th>Total Harga</th>
+                <th>Bayar</th>
+                <th>Total</th>
             </tr>
         </thead>
         <?php
@@ -28,14 +25,11 @@
             <tbody align="center">
                 <tr>
                     <td><?= $no++; ?></td>
-                    <td><?= $trk['id_transaksi']; ?> </td>
                     <td><?= $trk['id_pesanan']; ?> </td>
-                    <td><?= $trk['id_menu']; ?> </td>
-                    <td><?= $trk['id_pegawai']; ?> </td>
-                    <td><?= $trk['namaCustomer']; ?></td>
-                    <td><?= $trk['tgl_pesan']; ?></td>
-                    <td><?= $trk['jml_pesan']; ?></td>
-                    <td><?= $trk['totalHarga']; ?></td>
+                    <td><?= $trk['tgl_pesan']; ?> </td>
+                    <td><?= $trk['nama_Customer']; ?></td>
+                    <td><?= $trk['bayar']; ?></td>
+                    <td><?= $trk['total']; ?></td>
                 </tr>
             </tbody>
         <?php

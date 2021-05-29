@@ -56,6 +56,7 @@ class auth extends CI_Controller
                 $data = [
 
                     'idJabatan' => $pegawai['id_jabatan'],
+                    'idpegawai' => $pegawai['id_pegawai'],
                     'Nama' => $pegawai['namaPegawai'],
                     'tglLahir' => $pegawai['tgl_lahir'],
                     'Alamat' => $pegawai['alamat'],

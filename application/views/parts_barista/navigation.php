@@ -172,7 +172,12 @@
                             </a>
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
-                                    <a class="nav-link" href="<?= base_url(); ?>Order">
+
+                                    <a class="nav-link" href="<?= base_url(); ?>Pemesanan">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Tambah Pemesanan</p>
+                                    </a>
+                                    <a class="nav-link" href="<?= base_url(); ?>Pemesanan/indexPesanan">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>Data Pemesanan</p>
                                     </a>

@@ -7,18 +7,22 @@ class Pemesanan extends CI_Controller
     function __construct()
     {
         parent::__construct();
-
-        if ($this->session->userdata('status') != "login") {
+        if ($this->session->userdata('idJabatan') == 1) {
+            echo 'Anda tidak bisa mengakses halaman ini';
+            die();
+        } else if ($this->session->userdata('status') != "login") {
             redirect(base_url("auth"));
+        } else {
+            $this->load->library('form_validation');
+            $this->load->model('Pemesanan_m');
+            $this->load->helper('file');
         }
         // if (!isset($_SERVER['HTTP_REFERER'])) {
 
         //     $this->load->helper('url');
         //     redirect('/page404');
         // }
-        $this->load->library('form_validation');
-        $this->load->model('Pemesanan_m');
-        $this->load->helper('file');
+
     }
 
     public function index()
@@ -47,7 +51,7 @@ class Pemesanan extends CI_Controller
         $tgl = date('Y-m-d H:i');
         $data = array(
             'id_pesanan' => $idPesanan,
-            'id_pegawai' => $this->session->userdata('idPegawai'),
+            'id_pegawai' => $this->session->userdata('idpegawai'),
             'tgl_pesan' => $tgl,
             'nama_Customer' => $nama,
             'bayar' => $bayar,
@@ -72,5 +76,35 @@ class Pemesanan extends CI_Controller
         //     }
         // }
         redirect('Pegawai');
+    }
+
+    public function indexPesanan()
+    {
+        $halamanOrder['Orders'] = $this->Pemesanan_m->getAllOrder();
+        $this->load->view('barista/v_Order', $halamanOrder);
+    }
+    public function detailOrder($id)
+    {
+        $data['Details'] = $this->Pemesanan_m->getOrderDetails($id);
+        $data['Nama'] = $this->Pemesanan_m->getCustomerName($id);
+        $this->load->view('barista/v_detailOrder', $data);
+    }
+
+    public function cetak($id)
+    {
+        $data['Orders'] = $this->Pemesanan_m->getOrderDetails($id);
+        $data['Nama'] = $this->Pemesanan_m->getCustomerName($id);
+        $data['Id'] = $this->Pemesanan_m->getID($id);
+        $this->load->view('print_Struk', $data);
+        // $mpdf = new \Mpdf\Mpdf();
+        // $doc = $this->load->view('print_Struk', $data, TRUE);;
+        // $mpdf->WriteHTML($doc);
+        // $mpdf->Output();
+    }
+    public function delete($id)
+    {
+        $this->Pemesanan_m->deleteDetail($id);
+        $this->Pemesanan_m->deleteOrder($id);
+        redirect('Pemesanan/indexPesanan');
     }
 }

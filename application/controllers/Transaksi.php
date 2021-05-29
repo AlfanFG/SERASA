@@ -25,7 +25,7 @@ class Transaksi extends CI_Controller
 
     public function print()
     {
-        $data['transaksi'] = $this->M_Transaksi->getDataTransaksi('tbl_transaksi');
+        $data['transaksi'] = $this->M_Transaksi->getDataTransaksi();
         $this->load->view('manajer/print_transaksi', $data);
     }
 }

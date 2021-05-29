@@ -309,7 +309,7 @@ $this->load->view('parts_barista/footer');
             </div>
             <div class="modal-footer">
                 <!-- direct ke table pesanan -->
-                <a href="#" style="float:left; margin-right: 250px" id="btn-cetak" class="btn btn-info"><i class="fas fa-print"> Cetak</i></a>
+                <a href="<?= base_url(); ?>Pemesanan/cetak/<?= $id; ?>" target="_blank" style="float:left; margin-right: 250px" id="btn-cetak" class="btn btn-info"><i class="fas fa-print"> Cetak</i></a>
                 <a href="<?php echo site_url('Pemesanan'); ?>" class="btn btn-default">Oke</a>
                 <!-- direct ke fungsi cetak -->
 
