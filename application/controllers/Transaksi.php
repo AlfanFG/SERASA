@@ -23,9 +23,32 @@ class Transaksi extends CI_Controller
         $this->load->view('manajer/transaksi', $data);
     }
 
+    // public function print()
+    // {
+    //     $data['transaksi'] = $this->M_Transaksi->getDataTransaksi();
+    //     $this->load->view('manajer/print_transaksi', $data);
+    // }
     public function print()
     {
-        $data['transaksi'] = $this->M_Transaksi->getDataTransaksi();
+        $tglawal = $this->input->post('tglawal');
+        $tglakhir = $this->input->post('tglakhir');
+        $data['transaksi'] = $this->M_Transaksi->getFilter($tglawal, $tglakhir);
         $this->load->view('manajer/print_transaksi', $data);
+    }
+
+    public function filter()
+    {
+        $tglawal = $this->input->post('tglawal');
+        $tglakhir = $this->input->post('tglakhir');
+        $submittype = $this->input->post('submittype');
+        if ($submittype == 'filter') {
+            $data['dataTransaksi'] = $this->M_Transaksi->getFilter($tglawal, $tglakhir);
+            $data['tglawal'] = $tglawal;
+            $data['tglakhir'] = $tglakhir;
+            $this->load->view('manajer/transaksi', $data);
+        } else if ($submittype == 'print') {
+            $data['transaksi'] = $this->M_Transaksi->getFilter($tglawal, $tglakhir);
+            $this->load->view('manajer/print_transaksi', $data);
+        }
     }
 }
