@@ -15,7 +15,7 @@ $this->load->view('parts/navigationManajer');
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
-                        <li class="breadcrumb-item"><a href="#">Home</a></li>
+                        <li class="breadcrumb-item"><a href="">Home</a></li>
                         <li class="breadcrumb-item active">Data History Pesanan</li>
                     </ol>
                 </div>
@@ -48,29 +48,27 @@ $this->load->view('parts/navigationManajer');
                             <table class="table table-hover text-nowrap" id="tbl_transaksi">
                                 <thead>
                                     <tr>
-                                        <th>ID transaksi</th>
+                                        <th>No</th>
                                         <th>ID Pesanan</th>
-                                        <th>ID Menu</th>
-                                        <th>ID Pegawai</th>
+                                        <th>Nama Pegawai</th>
+                                        <th>Tanggal Pemesanan</th>
                                         <th>Nama Customer</th>
-                                        <th>Tgl Pesan</th>
-                                        <th>Jml Pesan</th>
-                                        <th>Total Harga</th>
 
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <?php foreach ($HistoryPesanan as $data) { ?>
+                                    <?php $no = 1;
+                                    foreach ($HistoryPesanan as $data) { ?>
                                         <tr>
-                                            <td><?php echo $data['id_transaksi'] ?></td>
-                                            <td><?php echo $data['id_pesanan'] ?></td>
-                                            <td><?php echo $data['id_menu'] ?></td>
-                                            <td><?php echo $data['id_pegawai'] ?></td>
-                                            <td><?php echo $data['namaCustomer'] ?></td>
-                                            <td><?php echo $data['tgl_pesan'] ?></td>
-                                            <td><?php echo $data['jml_pesan'] ?></td>
-                                            <td><?php echo $data['totalHarga'] ?></td>
+                                            <td><?= $no++; ?></td>
+                                            <td><?= $data['id_pesanan']; ?></td>
+                                            <td><?= $data['namaPegawai']; ?></td>
+                                            <td><?= $data['tgl_pesan']; ?></td>
+                                            <td><?= $data['nama_Customer']; ?></td>
+                                            <td>
+                                                <a href="<?php echo base_url(); ?>HistoryPesanan/detail/<?= $data['id_pesanan']; ?>"><button type="submit" class="btn btn-primary"><i class="fa fa-eye"></i></button></a>
 
+                                            </td>
                                         </tr>
                                     <?php } ?>
                                 </tbody>
