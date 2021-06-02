@@ -9,8 +9,19 @@ $this->load->view('parts/navigationManajer');
             Data Transaksi
         </h1>
     </section>
-    <a href="<?= base_url('Transaksi/print') ?>" type="button" class="btn btn-success"><i class="fa fa-print"> Cetak</i></a>
-
+    <!-- <a href="<?= base_url('Transaksi/print') ?>" type="button" class="btn btn-success"><i class="fa fa-print"> Cetak</i></a> -->
+    <div class="col-md-4">
+        <form action="<?= base_url('Transaksi/filter'); ?>" method="post">
+            <a><b>Tanggal Pesanan</b></a><br>
+            <div class="col-md-10">
+                <input type="date" name="tglawal" value="<?= isset($tglawal) ? $tglawal : ''; ?>"><br>
+                <a>Sampai</a><br>
+                <input type="date" name="tglakhir" value="<?= isset($tglakhir) ? $tglakhir : ''; ?>">
+                <input type="submit" class="btn btn-primary" name="submittype" value="filter">
+                <input type="submit" class="btn btn-primary" class="fa fa-print" name="submittype" value="print" formtarget="_blank">
+            </div><br>
+        </form>
+    </div>
     <section class="content">
         <table class="table" id="tblDataTransaksi">
             <thead align="center">

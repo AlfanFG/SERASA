@@ -20,12 +20,12 @@ $this->load->view('parts_barista/navigation');
     }
 
 
-    .nav-item {
+    .nav-item-link {
         text-decoration: none;
         color: #000;
     }
 
-    .nav-item:hover {
+    .nav-item-link:hover {
         text-decoration: none;
         color: #fff;
         background-color: cornflowerblue;
@@ -96,7 +96,7 @@ $this->load->view('parts_barista/navigation');
                         <tr>
                         <?php } ?>
 
-                        <td><a class="nav-item nav-link nav-menu active" href="#" id="<?php echo $row['id_kategoriMenu'] ?>"><?php echo $row['namaKategori']; ?></a></td>
+                        <td><a class="nav-item-link nav-link nav-menu active" href="#" id="<?php echo $row['id_kategoriMenu'] ?>"><?php echo $row['namaKategori']; ?></a></td>
 
 
                         <?php $i++; ?>
@@ -108,6 +108,7 @@ $this->load->view('parts_barista/navigation');
             <div class="row">
 
                 <div class="col-8">
+
                     <div class="container menu elevation-1 border">
 
                         <div class="row">
@@ -123,10 +124,8 @@ $this->load->view('parts_barista/navigation');
                                             <?php } ?>
 
 
-                                            <div class="col link-item" style="margin-left: 0px;">
+                                            <div class="col-md-3 link-item" style="margin-left: 40px;">
                                                 <button class="<?php echo 'card link link-' . $i ?>" id="<?php echo 'link-' . $i ?>" style="width: 11rem; margin-right:50px; height:400px">
-
-
 
                                                     <img src="<?php echo base_url('assets/images/menu_kategori/' . $data['fotoMenu']); ?>" class="card-img-top" style="height: 200px;" alt="...">
                                                     <div class="card-body">
@@ -413,7 +412,7 @@ $this->load->view('parts_barista/footer');
             $.each(obj, function(i, data) {
 
 
-                $(` <div class="col link-item">
+                $(` <div class="col-md-3 link-item" style="margin-left: 40px;">
                                         <button class="card link link-` + i + `" id="link-` + i + `" style="width: 11rem; margin-right:40px; height:400px">
                                         <img src="<?php echo base_url(); ?>assets/images/menu_kategori/` + obj[i].fotoMenu + `" class="card-img-top" style="height: 200px;" alt="...">
                 <div class="card-body">

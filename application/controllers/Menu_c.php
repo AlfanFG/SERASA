@@ -13,6 +13,7 @@ class Menu_c extends CI_Controller
             redirect(base_url("auth"));
         } else {
             $this->load->model('Menu_m');
+            $this->load->model('KategoriMenu_m');
             $this->load->library('form_validation');
         }
     }
@@ -38,12 +39,10 @@ class Menu_c extends CI_Controller
 
 
         $this->load->library('upload', $config);
-        $this->upload->initialize($config);
 
-        $fotoMenu = "fotoMenu";
-        if (!$this->upload->do_upload($fotoMenu)) {
+        if (!$this->upload->do_upload('image')) {
             $error = array('error' => $this->upload->display_errors());
-            $this->session->set_flashdata('error', $error['error']);
+            $this->session->set_flashdata('error', $error);
             redirect('Menu_c');
         } else {
             $name = $this->upload->data('file_name');
@@ -53,17 +52,65 @@ class Menu_c extends CI_Controller
 
     public function addMenu()
     {
-        $data = array(
-            'id_menu' => $this->input->post('idMenu'),
-            'id_kategoriMenu' => $this->input->post('idKategori'),
-            'namaMenu' => $this->input->post('namaMenu'),
-            'harga' => $this->input->post('harga'),
-            'ketersediaan' => $this->input->post('ketersediaan'),
-            'Deskripsi' => $this->input->post('deskripsi'),
-            'fotoMenu' => $this->uploadImage()
-        );
-        $this->Menu_m->insertMenu($data);
-        return redirect('Menu_c');
+        $this->form_validation->set_rules('idMenu', 'ID Menu', 'required');
+        $this->form_validation->set_rules('idKategori', 'ID Kategori Menu', 'required');
+        $this->form_validation->set_rules('namaMenu', 'Nama Menu', 'required');
+        $this->form_validation->set_rules('harga', 'Harga Menu', 'required');
+        $this->form_validation->set_rules('ketersediaan', 'Ketersediaan', 'required');
+        $this->form_validation->set_rules('deskripsi', 'Deskripsi', 'required');
+        if (empty($_FILES['image']['name'])) {
+            $this->form_validation->set_rules('image', 'Foto', 'required');
+        }
+
+
+        if ($this->form_validation->run()) {
+
+            echo $this->input->post('idMenu');
+            echo $this->input->post('idKategori');
+            echo $this->input->post('namaMenu');
+            echo $this->input->post('harga');
+            echo $this->input->post('ketersediaan');
+            echo $this->input->post('deskripsi');
+            echo $this->uploadImage();
+
+            $data = array(
+                'id_menu' => $this->input->post('idMenu'),
+                'id_kategoriMenu' => $this->input->post('idKategori'),
+                'namaMenu' => $this->input->post('namaMenu'),
+                'harga' => $this->input->post('harga'),
+                'ketersediaan' => $this->input->post('ketersediaan'),
+                'Deskripsi' => $this->input->post('deskripsi'),
+                'fotoMenu' => $this->uploadImage()
+
+            );
+
+
+            $this->Menu_m->insertMenu($data);
+
+            // redirect('Pegawai');
+        } else {
+            $json = array();
+            $json = array(
+
+                'idMenu' => form_error('idMenu', '<p class="mt-3 text-danger">', '</p>'),
+                'idKategori' => form_error('idKategori', '<p class="mt-3 text-danger">', '</p>'),
+                'namaMenu' => form_error('namaMenu', '<p class="mt-3 text-danger">', '</p>'),
+                'harga' => form_error('harga', '<p class="mt-3 text-danger">', '</p>'),
+                // 'jmlPermohonan' => form_error('jmlPermohonan', '<p class="mt-3 text-danger">', '</p>'),
+                'ketersediaan' => form_error('ketersediaan', '<p class="mt-3 text-danger">', '</p>'),
+                'deskripsi' => form_error('deskripsi', '<p class="mt-3 text-danger">', '</p>'),
+                'foto' => form_error('foto', '<p class="mt-3 text-danger">', '</p>'),
+                // 'jangkaWaktu' => form_error('jangkaWaktu', '<p class="mt-3 text-danger">', '</p>'),
+                // 'mengetahui' => form_error('mengetahui', '<p class="mt-3 text-danger">', '</p>'),
+                'status' => 'invalid'
+
+            );
+
+
+            $this->output
+                ->set_content_type('application/json')
+                ->set_output(json_encode($json));
+        }
     }
 
     public function delete($id)
@@ -75,20 +122,25 @@ class Menu_c extends CI_Controller
     public function update()
     {
         $id = $this->input->post('idMenu');
-        $this->form_validation->set_rules('idKategoriMenu', 'ID Kategori', 'required|trim');
-        $this->form_validation->set_rules('namaMenu', 'Nama Menu', 'required|trim');
-        $this->form_validation->set_rules('harga', 'Harga', 'required|trim');
-        $this->form_validation->set_rules('ketersediaan', 'Ketersediaan', 'required|trim');
-        $this->form_validation->set_rules('deskripsi', 'Deskripsi', 'required|trim');
-        $this->form_validation->set_rules('fotoMenu', 'Foto Menu', 'required|trim');
-
-        if ($this->form_validation->run() == FALSE) {
-
-            $this->load->view('barista/v_Menu');
+        if (empty($_FILES["image"]["name"])) {
+            $name = $this->input->post('old_image');
         } else {
-
-            $this->Menu_m->updateMenu($id);
-            redirect('Menu_c');
+            $name = $this->uploadImage();
         }
+        $data = array(
+            'id_menu' => $this->input->post('idMenu'),
+            'id_kategoriMenu' => $this->input->post('idKategori'),
+            'namaMenu' => $this->input->post('namaMenu'),
+            'harga' => $this->input->post('harga'),
+            'ketersediaan' => $this->input->post('ketersediaan'),
+            'Deskripsi' => $this->input->post('deskripsi'),
+            'fotoMenu' => $name
+
+        );
+
+
+        $this->Menu_m->updateMenu($data, $id);
+
+        // redirect('Menu_c');
     }
 }
