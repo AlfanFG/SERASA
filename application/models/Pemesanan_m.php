@@ -66,6 +66,16 @@ class Pemesanan_m extends CI_Model
         return $query->row_array();
     }
 
+    function getDataPemesananById($id)
+    {
+        $this->db->select('*');
+        $this->db->from('tbl_detailpesanan');
+        $this->db->where('id_pesanan', $id);
+        $query = $this->db->get();
+
+        return $query->result_array();
+    }
+
     function insertDataPemesanan($batch)
     {
         $this->db->insert('tbl_detailpesanan', $batch);
@@ -76,6 +86,18 @@ class Pemesanan_m extends CI_Model
         $this->db->select('id_pesanan,namaPegawai,tgl_pesan,nama_Customer,bayar,total');
         $this->db->from('tbl_pesanan');
         $this->db->join('tbl_pegawai', 'tbl_pegawai.id_pegawai = tbl_pesanan.id_pegawai');
+        return $query = $this->db->get()->result_array();
+
+
+        // return $this->db->get('tbl_pesanan')->result_array();
+    }
+
+    public function getOrderUncheck()
+    {
+        $this->db->select('id_pesanan,namaPegawai,tgl_pesan,nama_Customer,bayar,total');
+        $this->db->from('tbl_pesanan');
+        $this->db->join('tbl_pegawai', 'tbl_pegawai.id_pegawai = tbl_pesanan.id_pegawai');
+        $this->db->where('tbl_pesanan.status', 'menunggu');
         return $query = $this->db->get()->result_array();
 
 
@@ -116,5 +138,10 @@ class Pemesanan_m extends CI_Model
     public function deleteDetail($id)
     {
         $this->db->delete('tbl_detailpesanan', array('id_pesanan' => $id));
+    }
+
+    function ubahAntrian($id)
+    {
+        $this->db->query("UPDATE tbl_pesanan SET status = 'selesai' WHERE id_pesanan = '$id'");
     }
 }

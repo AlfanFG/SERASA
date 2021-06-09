@@ -32,6 +32,14 @@ class Pemesanan extends CI_Controller
         $this->load->view('barista/v_pemesanan', $data);
     }
 
+    public function editPemesanan($id)
+    {
+        $data['pemesanan'] = $this->Pemesanan_m->getDataMenu();
+        $data['kategori'] = $this->Pemesanan_m->getDataKategori();
+        $data['pesanan'] = $this->Pemesanan_m->getDataPemesananById($id);
+        $this->load->view('barista/v_editPemesanan', $data);
+    }
+
     public function getMenuById($id)
     {
         $data = $this->Pemesanan_m->getDataMenuById($id);
@@ -55,10 +63,29 @@ class Pemesanan extends CI_Controller
             'tgl_pesan' => $tgl,
             'nama_Customer' => $nama,
             'bayar' => $bayar,
-            'total' => $total
-
+            'total' => $total,
+            'status' => 'menunggu'
         );
         $this->db->insert('tbl_pesanan', $data);
+
+        //pusher
+        require_once(APPPATH . 'views/vendor/autoload.php');
+        $options = array(
+            'cluster' => 'ap1',
+            'useTLS' => true
+        );
+        $pusher = new Pusher\Pusher(
+            'aed177da11863896091b',
+            'b61ccb2b6e5751ef77ca',
+            '1214577',
+            $options
+        );
+
+        $data['message'] = 'success';
+        $pusher->trigger('my-channel', 'my-event', $data);
+        //end pusher
+
+
 
         foreach ($arr as $row) {
             $data = array(
@@ -90,6 +117,13 @@ class Pemesanan extends CI_Controller
         $this->load->view('barista/v_detailOrder', $data);
     }
 
+    public function getDataPemesananById($id)
+    {
+        $data = $this->Pemesanan_m->getDataPemesananById($id);
+
+        echo json_encode($data);
+    }
+
     public function cetak($id)
     {
         $data['Orders'] = $this->Pemesanan_m->getOrderDetails($id);
@@ -106,5 +140,37 @@ class Pemesanan extends CI_Controller
         $this->Pemesanan_m->deleteDetail($id);
         $this->Pemesanan_m->deleteOrder($id);
         redirect('Pemesanan/indexPesanan');
+    }
+
+    public function indexAntrian()
+    {
+        $this->load->view('barista/v_antrianPemesanan');
+    }
+
+    function get_antrianPesanan()
+    {
+        $data = $this->Pemesanan_m->getOrderUncheck();
+        echo json_encode($data);
+    }
+
+    function updateAntrian($id)
+    {
+
+        $this->Pemesanan_m->ubahAntrian($id);
+
+        require_once(APPPATH . 'views/vendor/autoload.php');
+        $options = array(
+            'cluster' => 'ap1',
+            'useTLS' => true
+        );
+        $pusher = new Pusher\Pusher(
+            'aed177da11863896091b',
+            'b61ccb2b6e5751ef77ca',
+            '1214577',
+            $options
+        );
+
+        $data['message'] = 'success';
+        $pusher->trigger('my-channel', 'my-event', $data);
     }
 }
