@@ -181,6 +181,10 @@
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>Data Pemesanan</p>
                                     </a>
+                                    <a class="nav-link" href="<?= base_url(); ?>Pemesanan/indexAntrian">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Antrian Pemesanan</p>
+                                    </a>
                                 </li>
                             </ul>
                         </li>
