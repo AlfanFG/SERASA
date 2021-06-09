@@ -70,7 +70,7 @@ $this->load->view('parts_barista/navigation');
                                             <td>
                                                 <a href="<?php echo base_url(); ?>Pemesanan/detailOrder/<?= $Order['id_pesanan']; ?>"><button type="submit" class="btn btn-primary"><i class="fa fa-eye"></i></button></a>
 
-                                                <button class="btn btn-warning btn-edit"><i class="fa fa-pencil"></i></button>
+                                                <a href="<?php echo base_url(); ?>Pemesanan/editPemesanan/<?= $Order['id_pesanan']; ?>" class="btn btn-warning btn-edit"><i class="fa fa-pencil"></i></a>
 
                                                 <button class="btn btn-danger btn-del"><i class="fa fa-trash"></i></button>
 

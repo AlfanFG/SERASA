@@ -440,9 +440,6 @@ $this->load->view('parts/footer');
         $('#modal-insert').modal('hide');
         $('#modal-confirm').modal('show');
 
-
-
-
     }
 
     $(document).ready(function() {

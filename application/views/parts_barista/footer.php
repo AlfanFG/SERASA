@@ -48,6 +48,8 @@
 <script src="<?= base_url('assets/dist/js/demo.js'); ?>"></script>
 <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
 <script src="<?= base_url('assets/dist/js/pages/dashboard.js'); ?>"></script>
+<script src="https://js.pusher.com/4.4/pusher.min.js"></script>
+<script src="https://lipis.github.io/bootstrap-sweetalert/dist/sweetalert.js"></script>
 </body>
 
 </html>

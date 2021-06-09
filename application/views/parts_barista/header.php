@@ -27,5 +27,6 @@
     <!-- summernote -->
     <link rel="stylesheet" href="<?= base_url('assets/plugins/summernote/summernote-bs4.min.css'); ?>">
     <link rel="stylesheet" href="<?= base_url('assets/css/nav.css'); ?>">
+    <link rel="stylesheet" href="https://lipis.github.io/bootstrap-sweetalert/dist/sweetalert.css" />
     <script src="https://kit.fontawesome.com/6090784b79.js" crossorigin="anonymous"></script>
 </head>
