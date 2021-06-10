@@ -3,7 +3,7 @@ $this->load->view('parts/header');
 $this->load->view('parts/navigationManajer');
 ?>
 
-<div class="content-wrapper">
+<div class="content-wrapper" style="background-color: #fff;">
     <section class="content-header">
         <h1>
             Data Transaksi
@@ -18,7 +18,7 @@ $this->load->view('parts/navigationManajer');
                 <a>Sampai</a><br>
                 <input type="date" name="tglakhir" value="<?= isset($tglakhir) ? $tglakhir : ''; ?>">
                 <input type="submit" class="btn btn-primary" name="submittype" value="filter">
-                <input type="submit" class="btn btn-primary" class="fa fa-print" name="submittype" value="print" formtarget="_blank">
+                <input type="submit" class="btn btn-info" class="fa fa-print" name="submittype" value="print" formtarget="_blank">
             </div><br>
         </form>
     </div>
@@ -100,3 +100,6 @@ $this->load->view('parts/navigationManajer');
 <?php
 $this->load->view('parts/footer');
 ?>
+<script>
+    $('#tblDataTransaksi').DataTable();
+</script>

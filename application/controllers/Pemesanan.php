@@ -144,7 +144,8 @@ class Pemesanan extends CI_Controller
 
     public function indexAntrian()
     {
-        $this->load->view('barista/v_antrianPemesanan');
+        $data['antrian'] = $this->Pemesanan_m->getOrderUncheck();
+        $this->load->view('barista/v_antrianPemesanan', $data);
     }
 
     function get_antrianPesanan()

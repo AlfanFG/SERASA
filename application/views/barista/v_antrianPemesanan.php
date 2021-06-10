@@ -4,7 +4,7 @@ $this->load->view('parts_barista/header');
 $this->load->view('parts_barista/navigation');
 ?>
 
-<div class="content-wrapper">
+<div class="content-wrapper" style="background-color: #fff;">
     <!-- Content Header (Page header) -->
     <div class="content-header">
         <div class="container-fluid">
@@ -43,7 +43,20 @@ $this->load->view('parts_barista/navigation');
                             </tr>
                         </thead>
                         <tbody class="show_antrian">
-
+                            <?php
+                            $no = 1;
+                            foreach ($antrian as $data) {
+                            ?>
+                                <tr>
+                                    <td><?= $no++; ?></td>
+                                    <td><?= $data['id_pesanan']; ?></td>
+                                    <td><?= $data['tgl_pesan']; ?></td>
+                                    <td><?= $data['nama_Customer']; ?></td>
+                                    <td><?= $data['bayar']; ?></td>
+                                    <td><?= $data['total']; ?></td>
+                                    <td><a href="<?php echo base_url('Pemesanan/detailOrder/' . $data['id_pesanan']); ?>" class="btn btn-sm btn-info" data-id="' + data[i].id_pesanan + '"><i class="fas fa-eye"></i></a> <a href="javascript:void(0);" class="btn btn-sm btn-primary item_edit" data-id="' + data[i].id_pesanan + '"><i class="fas fa-check"></i></a></td>
+                                </tr>
+                            <?php } ?>
                         </tbody>
                     </table>
                 </div>
@@ -121,6 +134,7 @@ $this->load->view('parts_barista/footer');
 ?>
 <script>
     $(document).ready(function() {
+        $('#mytable').DataTable();
         show_antrian();
 
         // Enable pusher logging - don't include this in production
@@ -157,7 +171,7 @@ $this->load->view('parts_barista/footer');
                             '<td>' + data[i].bayar + '</td>' +
                             '<td>' + data[i].total + '</td>' +
                             '<td>' +
-                            '<a href="javascript:void(0);" class="btn btn-sm btn-primary item_edit" data-id="' + data[i].id_pesanan + '"><i class="fas fa-check"></i></a>' +
+                            '<a href="<?php echo base_url() ?>Pemesanan/detailOrder/' + data[i].id_pesanan + '" class="btn btn-sm btn-info" data-id="' + data[i].id_pesanan + '"><i class="fas fa-eye"></i></a> <a href="javascript:void(0);" class="btn btn-sm btn-primary item_edit" data-id="' + data[i].id_pesanan + '"><i class="fas fa-check"></i></a>' +
 
                             '</td>' +
                             '</tr>';

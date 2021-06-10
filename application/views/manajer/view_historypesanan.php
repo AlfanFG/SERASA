@@ -6,7 +6,7 @@ $this->load->view('parts/navigationManajer');
 ?>
 
 <!-- Content Header -->
-<div class="content-wrapper">
+<div class="content-wrapper" style="background-color: #fff;">
     <div class="content-header">
         <div class="container-fluid">
             <div class="row mb-2">
@@ -28,53 +28,39 @@ $this->load->view('parts/navigationManajer');
         <div class="container-fluid">
             <div class="row">
                 <div class="col-12" style="margin-top: 50px;">
-                    <div class="card">
-                        <div class="card-header">
-                            <h3 class="card-title">Tabel History Pesanan</h3>
 
-                            <div class="card-tools">
-                                <div class="input-group input-group-sm-18" style="width: 150px;">
-                                    <input type="text" name="table_search" class="form-control float-right" placeholder="Search">
+                    <div class="card-body table-responsive p-0">
+                        <table class="table table-hover text-nowrap" id="tbl_transaksi">
+                            <thead>
+                                <tr>
+                                    <th>No</th>
+                                    <th>ID Pesanan</th>
+                                    <th>Nama Pegawai</th>
+                                    <th>Tanggal Pemesanan</th>
+                                    <th>Nama Customer</th>
+                                    <th>Tools</th>
 
-                                    <div class="input-group-append">
-                                        <button type="submit" class="btn btn-default">
-                                            <i class="fas fa-search"></i>
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="card-body table-responsive p-0">
-                            <table class="table table-hover text-nowrap" id="tbl_transaksi">
-                                <thead>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php $no = 1;
+                                foreach ($HistoryPesanan as $data) { ?>
                                     <tr>
-                                        <th>No</th>
-                                        <th>ID Pesanan</th>
-                                        <th>Nama Pegawai</th>
-                                        <th>Tanggal Pemesanan</th>
-                                        <th>Nama Customer</th>
+                                        <td><?= $no++; ?></td>
+                                        <td><?= $data['id_pesanan']; ?></td>
+                                        <td><?= $data['namaPegawai']; ?></td>
+                                        <td><?= $data['tgl_pesan']; ?></td>
+                                        <td><?= $data['nama_Customer']; ?></td>
+                                        <td>
+                                            <a href="<?php echo base_url(); ?>HistoryPesanan/detail/<?= $data['id_pesanan']; ?>"><button type="submit" class="btn btn-primary"><i class="fa fa-eye"></i></button></a>
 
+                                        </td>
                                     </tr>
-                                </thead>
-                                <tbody>
-                                    <?php $no = 1;
-                                    foreach ($HistoryPesanan as $data) { ?>
-                                        <tr>
-                                            <td><?= $no++; ?></td>
-                                            <td><?= $data['id_pesanan']; ?></td>
-                                            <td><?= $data['namaPegawai']; ?></td>
-                                            <td><?= $data['tgl_pesan']; ?></td>
-                                            <td><?= $data['nama_Customer']; ?></td>
-                                            <td>
-                                                <a href="<?php echo base_url(); ?>HistoryPesanan/detail/<?= $data['id_pesanan']; ?>"><button type="submit" class="btn btn-primary"><i class="fa fa-eye"></i></button></a>
-
-                                            </td>
-                                        </tr>
-                                    <?php } ?>
-                                </tbody>
-                            </table>
-                        </div>
+                                <?php } ?>
+                            </tbody>
+                        </table>
                     </div>
+
                 </div>
             </div>
         </div>
@@ -88,4 +74,6 @@ $this->load->view('parts/footer');
 ?>
 
 
+<script>
+    $('#tbl_transaksi').DataTable();
 </script>

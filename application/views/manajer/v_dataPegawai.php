@@ -27,7 +27,7 @@ $this->load->view('parts/navigationManajer');
     </div>
 </div>
 
-<div class="content-wrapper">
+<div class="content-wrapper" style="background-color: #fff;">
     <!-- Content Header (Page header) -->
     <div class="content-header">
         <div class="container-fluid">
@@ -53,78 +53,63 @@ $this->load->view('parts/navigationManajer');
             <!-- Small boxes (Stat box) -->
             <div class="row">
                 <div class="col-12" style="margin-top: 50px;">
-                    <a class="btn btn-success" id="btn-tambah">Tambah Data</a>
-                    <div class="card">
-                        <div class="card-header">
-                            <h3 class="card-title">Responsive Hover Table</h3>
-
-                            <div class="card-tools">
-                                <div class="input-group input-group-sm" style="width: 150px;">
-                                    <input type="text" name="table_search" class="form-control float-right" placeholder="Search">
-
-                                    <div class="input-group-append">
-                                        <button type="submit" class="btn btn-default">
-                                            <i class="fas fa-search"></i>
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- /.card-header -->
-
-                        <div class="card-body table-responsive p-0">
-                            <table class="table table-hover text-nowrap" id="tablePegawai">
-                                <thead>
-                                    <tr>
-                                        <th>No.</th>
-                                        <th>ID Pegawai</th>
-                                        <th>ID Jabatan</th>
-                                        <th>Nama Pegawai</th>
-                                        <th>Tanggal Lahir</th>
-                                        <th>Alamat</th>
-                                        <th>Nomor Telepon</th>
-                                        <th>Foto</th>
-                                        <th>Tools</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <?php
-                                    $i = 1;
-                                    foreach ($dataPegawai as $data) {
-                                        echo "<tr>";
-                                        echo "<td>" . $i . "</td>";
-                                        echo "<td class='idPeg'>" . $data['id_pegawai'] . "</td>";
-                                        echo "<td class='idJabat'>" . $data['id_jabatan'] . "</td>";
-                                        echo "<td class='namaPeg'>" . $data['namaPegawai'] . "</td>";
-                                        echo "<td class='tgl'>" . $data['tgl_lahir'] . "</td>";
-                                        echo "<td class='alm'>" . $data['alamat'] . "</td>";
-                                        echo "<td class='phone'>" . $data['no_telp'] . "</td>";
-                                        echo "<td class='img'><img src= " . base_url('assets/images/' . $data['foto']) . " class='img-circle elevation-2' alt='User Image' width='50'></td>";
-                                        echo "<td class='namaPoto' hidden>" . $data['foto'] . "</td>";
-                                    ?>
-
-                                        <td align='left'>
+                    <a class="btn btn-success" id="btn-tambah">Tambah Data</a> <br><br>
 
 
-                                            <button class="btn btn-warning btn-edit"><i class="fa fa-pencil"></i></button>
+                    <div class="card-body table-responsive p-0">
+                        <table class="table table-hover text-nowrap" id="tablePegawai">
+                            <thead>
+                                <tr>
+                                    <th>No.</th>
+                                    <th>ID Pegawai</th>
+                                    <th>ID Jabatan</th>
+                                    <th>Nama Pegawai</th>
+                                    <th>Tanggal Lahir</th>
+                                    <th>Alamat</th>
+                                    <th>Nomor Telepon</th>
+                                    <th>Foto</th>
+                                    <th hidden>Foto</th>
+                                    <th>Tools</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php
+                                $i = 1;
+                                foreach ($dataPegawai as $data) {
+                                    echo "<tr>";
+                                    echo "<td>" . $i . "</td>";
+                                    echo "<td class='idPeg'>" . $data['id_pegawai'] . "</td>";
+                                    echo "<td class='idJabat'>" . $data['id_jabatan'] . "</td>";
+                                    echo "<td class='namaPeg'>" . $data['namaPegawai'] . "</td>";
+                                    echo "<td class='tgl'>" . $data['tgl_lahir'] . "</td>";
+                                    echo "<td class='alm'>" . $data['alamat'] . "</td>";
+                                    echo "<td class='phone'>" . $data['no_telp'] . "</td>";
+                                    echo "<td class='img'><img src= " . base_url('assets/images/' . $data['foto']) . " class='img-circle elevation-2' alt='User Image' width='50'></td>";
+                                    echo "<td class='namaPoto' hidden>" . $data['foto'] . "</td>";
+                                ?>
+
+                                    <td align='left'>
 
 
-                                            <button class="btn btn-danger btn-del"><i class="fa fa-trash"></i></button>
+                                        <button class="btn btn-warning btn-edit"><i class="fa fa-pencil"></i></button>
+
+
+                                        <button class="btn btn-danger btn-del"><i class="fa fa-trash"></i></button>
 
 
 
-                                        </td>
-                                    <?php
-                                        echo "</tr>";
-                                        $i++;
-                                    }
-                                    ?>
+                                    </td>
+                                <?php
+                                    echo "</tr>";
+                                    $i++;
+                                }
+                                ?>
 
-                                </tbody>
-                            </table>
-                        </div>
-                        <!-- /.card-body -->
+                            </tbody>
+                        </table>
                     </div>
+                    <!-- /.card-body -->
+
                     <!-- /.card -->
                 </div>
                 <!-- ./col -->
@@ -362,6 +347,7 @@ $this->load->view('parts/navigationManajer');
 $this->load->view('parts/footer');
 ?>
 <script type="text/javascript">
+    $('#tablePegawai').DataTable();
     var status;
     $('#btn-tambah').click(function() {
         $('#img').html(`<input type="file" class="form-control" id="image" name="image" value="" placeholder="Add image">

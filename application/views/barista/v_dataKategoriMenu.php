@@ -5,7 +5,7 @@ $this->load->view('parts_barista/navigation');
 ?>
 
 <!-- Content Header -->
-<div class="content-wrapper">
+<div class="content-wrapper" style="background-color: #fff;">
     <div class="content-header">
         <div class="container-fluid">
             <div class="row mb-2">
@@ -27,54 +27,39 @@ $this->load->view('parts_barista/navigation');
         <div class="container-fluid">
             <div class="row">
                 <div class="col-12" style="margin-top: 50px;">
-                    <a class="btn btn-success" id="btn-tambah">Tambah Data</a>
-                    <div class="card">
-                        <div class="card-header">
-                            <h3 class="card-title">Tabel Kategori Menu</h3>
+                    <a class="btn btn-success" id="btn-tambah">Tambah Data</a> <br><br>
 
-                            <div class="card-tools">
-                                <div class="input-group input-group-sm-18" style="width: 150px;">
-                                    <input type="text" name="table_search" class="form-control float-right" placeholder="Search">
-
-                                    <div class="input-group-append">
-                                        <button type="submit" class="btn btn-default">
-                                            <i class="fas fa-search"></i>
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="card-body table-responsive p-0">
-                            <table class="table table-hover text-nowrap" id="tblKategoriMenu">
-                                <thead>
+                    <div class="card-body table-responsive p-0">
+                        <table class="table table-hover text-nowrap" id="tblKategoriMenu">
+                            <thead>
+                                <tr>
+                                    <th>No</th>
+                                    <th>ID Kategori Menu</th>
+                                    <th>Nama Kategori</th>
+                                    <th>Tools</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php $no = 1;
+                                foreach ($kategoriMenu as $kategori) { ?>
                                     <tr>
-                                        <th>No</th>
-                                        <th>ID Kategori Menu</th>
-                                        <th>Nama Kategori</th>
-                                        <th>Tools</th>
+                                        <td><?= $no++; ?></td>
+                                        <td><?= $kategori['id_kategoriMenu']; ?></td>
+                                        <td><?= $kategori['namaKategori']; ?></td>
+                                        <td>
+
+                                            <button class="btn btn-warning btn-edit"><i class="fa fa-pencil"></i></button>
+
+                                            <button class="btn btn-danger btn-del"><i class="fa fa-trash"></i></button>
+
+                                        </td>
                                     </tr>
-                                </thead>
-                                <tbody>
-                                    <?php $no = 1;
-                                    foreach ($kategoriMenu as $kategori) { ?>
-                                        <tr>
-                                            <td><?= $no++; ?></td>
-                                            <td><?= $kategori['id_kategoriMenu']; ?></td>
-                                            <td><?= $kategori['namaKategori']; ?></td>
-                                            <td>
-
-                                                <button class="btn btn-warning btn-edit"><i class="fa fa-pencil"></i></button>
-
-                                                <button class="btn btn-danger btn-del"><i class="fa fa-trash"></i></button>
-
-                                            </td>
-                                        </tr>
-                                    <?php
-                                    } ?>
-                                </tbody>
-                            </table>
-                        </div>
+                                <?php
+                                } ?>
+                            </tbody>
+                        </table>
                     </div>
+
                 </div>
             </div>
         </div>
@@ -212,6 +197,7 @@ $this->load->view('parts_barista/footer');
 </div>
 <!-- Script -->
 <script type="text/javascript">
+    $('#tblKategoriMenu').DataTable();
     // Show Modal Tambah Data
     $('#btn-tambah').click(function() {
         $('#modal-insert').modal('show');

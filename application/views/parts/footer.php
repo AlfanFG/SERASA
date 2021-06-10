@@ -18,6 +18,7 @@
 <script src="<?= base_url('assets/plugins/jquery/jquery.min.js'); ?>"></script>
 <!-- jQuery UI 1.11.4 -->
 <script src="<?= base_url('assets/plugins/jquery-ui/jquery-ui.min.js'); ?>"></script>
+<script src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
 <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
 <script>
     $.widget.bridge('uibutton', $.ui.button)
@@ -48,7 +49,9 @@
 <script src="<?= base_url('assets/dist/js/demo.js'); ?>"></script>
 <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
 <script src="<?= base_url('assets/dist/js/pages/dashboard.js'); ?>"></script>
+<script src="https://js.pusher.com/4.4/pusher.min.js"></script>
 <script src="https://lipis.github.io/bootstrap-sweetalert/dist/sweetalert.js"></script>
+
 </body>
 
 </html>

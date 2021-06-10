@@ -5,7 +5,6 @@ $this->load->view('parts_barista/navigation');
 ?>
 <style>
     .detail {
-
         width: 350px;
         position: -webkit-sticky;
         /* position: sticky; */
@@ -16,9 +15,7 @@ $this->load->view('parts_barista/navigation');
         overflow-x: hidden;
         padding: 8px 0;
         text-decoration: none;
-
     }
-
 
     .nav-item-link {
         text-decoration: none;

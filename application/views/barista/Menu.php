@@ -27,13 +27,13 @@ $this->load->view('parts_barista/navigation');
     </div>
 </div>
 
-<div class="content-wrapper">
+<div class="content-wrapper" style="background-color: #fff;">
     <!-- Content Header (Page header) -->
     <div class="content-header">
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1 class="m-0 breadcrumb float-sm-left"><b>Data Master Pegawai</b></h1>
+                    <h1 class="m-0 breadcrumb float-sm-left"><b>Data Master Menu</b></h1>
                 </div><!-- /.col -->
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
@@ -53,70 +53,56 @@ $this->load->view('parts_barista/navigation');
             <!-- Small boxes (Stat box) -->
             <div class="row">
                 <div class="col-12" style="margin-top: 50px;">
-                    <a class="btn btn-success" id="btn-tambah">Tambah Data</a>
-                    <div class="card">
-                        <div class="card-header">
-                            <h3 class="card-title">Responsive Hover Table</h3>
+                    <a class="btn btn-success" id="btn-tambah">Tambah Data</a><br><br>
 
-                            <div class="card-tools">
-                                <div class="input-group input-group-sm" style="width: 150px;">
-                                    <input type="text" name="table_search" class="form-control float-right" placeholder="Search">
+                    <!-- /.card-header -->
 
-                                    <div class="input-group-append">
-                                        <button type="submit" class="btn btn-default">
-                                            <i class="fas fa-search"></i>
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- /.card-header -->
+                    <table class="table table-hover text-nowrap" id="tableMenu">
+                        <thead>
+                            <tr>
+                                <th>No</th>
+                                <th>ID Menu</th>
+                                <th>ID Kategori</th>
+                                <th>Nama Menu</th>
+                                <th>Harga</th>
+                                <th>Ketersediaan</th>
+                                <th>Foto</th>
+                                <th hidden>Deskripsi</th>
 
-                        <div class="card-body table-responsive p-0">
-                            <table class="table table-hover text-nowrap" id="tableMenu">
-                                <thead>
-                                    <tr>
-                                        <th>No</th>
-                                        <th>ID Menu</th>
-                                        <th>ID Kategori</th>
-                                        <th>Nama Menu</th>
-                                        <th>Harga</th>
-                                        <th>Ketersediaan</th>
-                                        <th>Foto</th>
-                                        <!-- <th>Deskripsi</th> -->
-                                        <th>Tools</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <?php $no = 1;
-                                    foreach ($dataMenu as $menu) { ?>
-                                        <tr>
-                                            <td><?= $no++; ?></td>
-                                            <td><?= $menu['id_menu']; ?></td>
-                                            <td><?= $menu['id_kategoriMenu']; ?></td>
-                                            <td><?= $menu['namaMenu']; ?></td>
-                                            <td><?= $menu['harga']; ?></td>
-                                            <td><?= $menu['ketersediaan']; ?></td>
-                                            <td hidden><?= $menu['Deskripsi']; ?></td>
-                                            <td><img src="<?php echo base_url('assets/images/menu_kategori/' . $menu['fotoMenu']); ?>" class="img-circle elevation-2" style="width: 50px; height:50px"></td>
-                                            <td>
+                                <th>Tools</th>
+                                <th hidden>foto</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php $no = 1;
+                            foreach ($dataMenu as $menu) { ?>
+                                <tr>
+                                    <td><?= $no++; ?></td>
+                                    <td><?= $menu['id_menu']; ?></td>
+                                    <td><?= $menu['id_kategoriMenu']; ?></td>
+                                    <td><?= $menu['namaMenu']; ?></td>
+                                    <td><?= $menu['harga']; ?></td>
+                                    <td><?= $menu['ketersediaan']; ?></td>
+                                    <td hidden><?= $menu['Deskripsi']; ?></td>
+                                    <td><img src="<?php echo base_url('assets/images/menu_kategori/' . $menu['fotoMenu']); ?>" class="img-circle elevation-2" style="width: 50px; height:50px"></td>
+                                    <td>
 
-                                                <button class="btn btn-warning btn-edit"><i class="fa fa-pencil"></i></button>
+                                        <button class="btn btn-warning btn-edit"><i class="fa fa-pencil"></i></button>
 
 
-                                                <button class="btn btn-danger btn-del"><i class="fa fa-trash"></i></button>
-                                            </td>
-                                            <td class='namaPoto' hidden><?php echo $menu['fotoMenu']; ?></td>
-                                        </tr>
-                                    <?php
-                                    } ?>
+                                        <button class="btn btn-danger btn-del"><i class="fa fa-trash"></i></button>
+                                    </td>
+                                    <td class='namaPoto' hidden><?php echo $menu['fotoMenu']; ?></td>
+                                </tr>
+                            <?php
+                            } ?>
 
 
-                                </tbody>
-                            </table>
-                        </div>
-                        <!-- /.card-body -->
-                    </div>
+                        </tbody>
+                    </table>
+
+                    <!-- /.card-body -->
+
                     <!-- /.card -->
                 </div>
                 <!-- ./col -->
@@ -342,6 +328,8 @@ $this->load->view('parts_barista/footer');
 ?>
 <script type="text/javascript">
     $(document).ready(function() {
+        $('#tableMenu').DataTable();
+
         $.post("<?php echo base_url() . "Menu_c/getId"; ?>",
             function(data) {
                 var data1 = new Array();

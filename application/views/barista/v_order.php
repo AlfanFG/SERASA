@@ -4,7 +4,7 @@ $this->load->view('parts_barista/header');
 $this->load->view('parts_barista/navigation');
 ?>
 <!-- Content Header -->
-<div class="content-wrapper">
+<div class="content-wrapper" style="background-color: #fff;">
     <div class="content-header">
         <div class="container-fluid">
             <div class="row mb-2">
@@ -27,71 +27,48 @@ $this->load->view('parts_barista/navigation');
             <div class="row">
                 <div class="col-12" style="margin-top: 50px;">
                     <!-- <a class="btn btn-success" id="btn-tambah">Tambah Data</a> -->
-                    <div class="card">
-                        <div class="card-header">
-                            <h3 class="card-title">Tabel Pesanan </h3>
-
-                            <div class="card-tools">
-                                <div class="input-group input-group-sm-18" style="width: 150px;">
-                                    <input type="text" name="table_search" class="form-control float-right" placeholder="Search">
-
-                                    <div class="input-group-append">
-                                        <button type="submit" class="btn btn-default">
-                                            <i class="fas fa-search"></i>
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="card-body table-responsive p-0">
-                            <table class="table table-hover text-nowrap" id="tblPesanan">
-                                <thead>
+                    <div class="card-body table-responsive p-0">
+                        <table class="table table-hover text-nowrap" id="tblPesanan">
+                            <thead>
+                                <tr>
+                                    <th>No</th>
+                                    <th>Id Pesanan</th>
+                                    <th>Nama Pegawai</th>
+                                    <th>Tanggal Pemesanan</th>
+                                    <th>Nama Customer</th>
+                                    <th>Bayar</th>
+                                    <th>total</th>
+                                    <th>Aksi</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php $no = 1;
+                                foreach ($Orders as $Order) { ?>
                                     <tr>
-                                        <th>No</th>
-                                        <th>Id Pesanan</th>
-                                        <th>Nama Pegawai</th>
-                                        <th>Tanggal Pemesanan</th>
-                                        <th>Nama Customer</th>
-                                        <th>Bayar</th>
-                                        <th>total</th>
+                                        <td><?= $no++; ?></td>
+                                        <td><?= $Order['id_pesanan']; ?></td>
+                                        <td><?= $Order['namaPegawai']; ?></td>
+                                        <td><?= $Order['tgl_pesan']; ?></td>
+                                        <td><?= $Order['nama_Customer']; ?></td>
+                                        <td><?= $Order['bayar']; ?></td>
+                                        <td><?= $Order['total']; ?></td>
+                                        <td>
+                                            <a href="<?php echo base_url(); ?>Pemesanan/detailOrder/<?= $Order['id_pesanan']; ?>"><button type="submit" class="btn btn-primary"><i class="fa fa-eye"></i></button></a>
+                                            <a href="<?php echo base_url(); ?>Pemesanan/editPemesanan/<?= $Order['id_pesanan']; ?>" class="btn btn-warning btn-edit"><i class="fa fa-pencil"></i></a>
+                                            <button class="btn btn-danger btn-del"><i class="fa fa-trash"></i></button>
+                                        </td>
                                     </tr>
-                                </thead>
-                                <tbody>
-                                    <?php $no = 1;
-                                    foreach ($Orders as $Order) { ?>
-                                        <tr>
-                                            <td><?= $no++; ?></td>
-                                            <td><?= $Order['id_pesanan']; ?></td>
-                                            <td><?= $Order['namaPegawai']; ?></td>
-                                            <td><?= $Order['tgl_pesan']; ?></td>
-                                            <td><?= $Order['nama_Customer']; ?></td>
-                                            <td><?= $Order['bayar']; ?></td>
-                                            <td><?= $Order['total']; ?></td>
-                                            <td>
-                                                <a href="<?php echo base_url(); ?>Pemesanan/detailOrder/<?= $Order['id_pesanan']; ?>"><button type="submit" class="btn btn-primary"><i class="fa fa-eye"></i></button></a>
-
-                                                <a href="<?php echo base_url(); ?>Pemesanan/editPemesanan/<?= $Order['id_pesanan']; ?>" class="btn btn-warning btn-edit"><i class="fa fa-pencil"></i></a>
-
-                                                <button class="btn btn-danger btn-del"><i class="fa fa-trash"></i></button>
-
-                                            </td>
-                                        </tr>
-                                    <?php
-                                    } ?>
-                                </tbody>
-                            </table>
-                        </div>
+                                <?php
+                                } ?>
+                            </tbody>
+                        </table>
                     </div>
+
                 </div>
             </div>
         </div>
     </section>
 </div>
-<!-- Footer -->
-<?php
-$this->load->view('parts_barista/footer');
-?>
-
 <!-- Modal Hapus Data -->
 <div class="modal fade" id="modal-delete" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog">
@@ -111,7 +88,14 @@ $this->load->view('parts_barista/footer');
         </div>
     </div>
 </div>
+<!-- Footer -->
+<?php
+$this->load->view('parts_barista/footer');
+?>
+
+
 <script type="text/javascript">
+    $("#tblPesanan").DataTable();
     // Modal Hapus Data 
     $("#tblPesanan").on('click', '.btn-del', function() {
         // get the current row
